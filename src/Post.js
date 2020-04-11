@@ -470,6 +470,9 @@ export const Post = ({relay, post, context}: Props) => {
           )}
         </Heading>
 
+        <br />
+        <small><a href={post.url} target="_blank">View on GitHub</a></small>
+
         {authors.length > 0 ? (
           <Box direction="row" gap="medium">
             {authors.map((node, i) =>
@@ -531,6 +534,7 @@ export default createFragmentContainer(Post, {
       body
       createdAt
       updatedAt
+      url
       assignees(first: 10) {
         nodes {
           id
