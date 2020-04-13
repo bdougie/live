@@ -198,6 +198,13 @@ function PostsRoot({preloadedQuery}: {preloadedQuery: any}) {
     return (
       <>
         <Header gitHub={data.gitHub} adminLinks={[]} />
+        <iframe
+          src="https://player.twitch.tv/?channel=me8bot"
+          frameborder="0"
+          allowfullscreen="true"
+          scrolling="no"
+          height="378"
+          width="620"></iframe>
         <Posts repository={respository} />
       </>
     );
