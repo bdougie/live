@@ -119,6 +119,23 @@ function Header({gitHub, adminLinks}) {
   );
 }
 
+function TwitchStream() {
+  return (
+    <div style={{padding: 24}}>
+      <iframe
+        src="https://player.twitch.tv/?channel=bdougieYO"
+        frameborder="0"
+        allowfullscreen="true"
+        scrolling="no"
+        height="378"
+        width="620"></iframe>
+      <a style={{padding: 24}} href="https://www.twitch.tv/bdougieyo?tt_content=text_link&tt_medium=live_embed">
+        Watch bdougieYO on Twitch
+      </a>
+    </div>
+  );
+}
+
 const postsRootQuery = graphql`
   # repoName and repoOwner provided by fixedVariables
   query App_Query($repoName: String!, $repoOwner: String!)
@@ -198,13 +215,7 @@ function PostsRoot({preloadedQuery}: {preloadedQuery: any}) {
     return (
       <>
         <Header gitHub={data.gitHub} adminLinks={[]} />
-        <iframe
-          src="https://player.twitch.tv/?channel=me8bot"
-          frameborder="0"
-          allowfullscreen="true"
-          scrolling="no"
-          height="378"
-          width="620"></iframe>
+        <TwitchStream />
         <Posts repository={respository} />
       </>
     );

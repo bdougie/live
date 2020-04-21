@@ -49,6 +49,10 @@ code {
   overflow-wrap: break-word;
 }
 
+iframe {
+  padding: 24px;
+}
+
 blockquote {
   font-style: italic;
   box-shadow: inset 3px 0 0 0 rgba(0, 0, 0, 0.27);
