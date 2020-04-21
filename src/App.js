@@ -39,6 +39,7 @@ import {editIssueUrl} from './issueUrls';
 import {Github} from 'grommet-icons/icons/Github';
 import PreloadCache from './preloadQueryCache';
 import PreloadCacheContext from './PreloadCacheContext';
+import ReactTwitchEmbedVideo from "react-twitch-embed-video"
 
 import type {LoginStatus} from './UserContext';
 import type {
@@ -116,23 +117,6 @@ function Header({gitHub, adminLinks}) {
         </Box>
       </PostBox>
     </>
-  );
-}
-
-function TwitchStream() {
-  return (
-    <div style={{padding: 24}}>
-      <iframe
-        src="https://player.twitch.tv/?channel=bdougieYO"
-        frameborder="0"
-        allowfullscreen="true"
-        scrolling="no"
-        height="378"
-        width="620"></iframe>
-      <a style={{padding: 24}} href="https://www.twitch.tv/bdougieyo?tt_content=text_link&tt_medium=live_embed">
-        Watch bdougieYO on Twitch
-      </a>
-    </div>
   );
 }
 
@@ -215,7 +199,7 @@ function PostsRoot({preloadedQuery}: {preloadedQuery: any}) {
     return (
       <>
         <Header gitHub={data.gitHub} adminLinks={[]} />
-        <TwitchStream />
+        <ReactTwitchEmbedVideo muted="true" channel="bdougieYO" />
         <Posts repository={respository} />
       </>
     );

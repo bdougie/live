@@ -31,6 +31,7 @@
     "react-markdown": "^4.3.1",
     "react-relay": "0.0.0-experimental-5f1cb628",
     "react-syntax-highlighter": "^11.0.2",
+    "react-twitch-embed-video": "^2.0.2",
     "sentence-case": "^3.0.3",
     "serialize-javascript": "^2.1.2",
     "styled-components": "^5.0.0",
