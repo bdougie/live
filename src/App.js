@@ -129,6 +129,13 @@ function TwitchStream() {
         scrolling="no"
         height="378"
         width="620"></iframe>
+        <iframe frameborder="<frameborder width>"
+        scrolling="<scrolling>"
+        id="bdougieYO>"
+        src="https://www.twitch.tv/embed/bdougieYO/chat?parent=mutualfun.live"
+        height="378"
+        width="620">
+</iframe>
       <a style={{padding: 24}} href="https://www.twitch.tv/bdougieyo?tt_content=text_link&tt_medium=live_embed">
         Watch bdougieYO on Twitch
       </a>
