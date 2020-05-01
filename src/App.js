@@ -156,6 +156,21 @@ const postsRootQuery = graphql`
       repository(name: $repoName, owner: $repoOwner) {
         ...Posts_repository
       }
+
+      liveStatus: repository(name: "live", owner: "mutualfun") {
+        issues(
+          first: 10
+          orderBy: { direction: DESC, field: CREATED_AT }
+          filterBy: { labels: ["live"] }
+        ) {
+          edges {
+            node {
+              id
+              title
+            }
+          }
+        }
+      }
     }
   }
 `;
@@ -215,6 +230,7 @@ function PostsRoot({preloadedQuery}: {preloadedQuery: any}) {
     postsRootQuery,
     preloadedQuery,
   );
+  console.log(data.github.liveStatus)
   const respository = data?.gitHub ? data?.gitHub.repository : null;
   if (!respository || !data.gitHub) {
     return <ErrorBox error={new Error('Repository not found.')} />;
