@@ -124,6 +124,7 @@ function Header({gitHub, adminLinks}) {
 
 function TwitchStream() {
   const asyncHero = useAsync(channelStatus, []);
+  console.log(asyncHero.result)
 
   return (
     <div style={{padding: 24}}>
@@ -136,7 +137,7 @@ function TwitchStream() {
         width="620"></iframe>
       {asyncHero.loading && <div>Loading</div>}
       {asyncHero.error && <div>Error: {asyncHero.error.message}</div>}
-      {asyncHero.result && (
+      {asyncHero.result && asyncHero.result.twitchTv.makeRestCall.get.jsonBody.stream && (
         <iframe
           frameborder="<frameborder width>"
           scrolling="<scrolling>"
