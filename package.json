@@ -25,6 +25,7 @@
     "onegraph-auth": "^2.2.1",
     "pixel-stream": "^1.0.3",
     "react": "0.0.0-experimental-f42431abe",
+    "react-async-hook": "^3.6.1",
     "react-dom": "0.0.0-experimental-f42431abe",
     "react-embed": "^2.7.1",
     "react-helmet": "^5.2.1",

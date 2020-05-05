@@ -50,6 +50,9 @@ import type {App_PostQueryResponse} from './__generated__/App_PostQuery.graphql'
 import type {Environment} from 'relay-runtime';
 import type {RelayNetworkError} from 'react-relay';
 
+import {useAsync} from 'react-async-hook';
+import {channelStatus} from './lib/Twitch';
+
 export const theme = deepMerge(generate(24, 10), {
   global: {
     colors: {
@@ -120,6 +123,8 @@ function Header({gitHub, adminLinks}) {
 }
 
 function TwitchStream() {
+  const asyncHero = useAsync(channelStatus, []);
+
   return (
     <div style={{padding: 24}}>
       <iframe
@@ -129,14 +134,20 @@ function TwitchStream() {
         scrolling="no"
         height="378"
         width="620"></iframe>
-        <iframe frameborder="<frameborder width>"
-        scrolling="<scrolling>"
-        id="bdougieYO>"
-        src="https://www.twitch.tv/embed/bdougieYO/chat?parent=mutualfun.live"
-        height="378"
-        width="620">
-</iframe>
-      <a style={{padding: 24}} href="https://www.twitch.tv/bdougieyo?tt_content=text_link&tt_medium=live_embed">
+      {asyncHero.loading && <div>Loading</div>}
+      {asyncHero.error && <div>Error: {asyncHero.error.message}</div>}
+      {asyncHero.result && asyncHero.result.twitchTv.makeRestCall.get.jsonBody.stream && (
+        <iframe
+          frameborder="<frameborder width>"
+          scrolling="<scrolling>"
+          id="bdougieYO>"
+          src="https://www.twitch.tv/embed/bdougieYO/chat?parent=mutualfun.live"
+          height="378"
+          width="620"></iframe>
+      )}
+      <a
+        style={{padding: 24}}
+        href="https://www.twitch.tv/bdougieyo?tt_content=text_link&tt_medium=live_embed">
         Watch bdougieYO on Twitch
       </a>
     </div>
