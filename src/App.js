@@ -124,7 +124,6 @@ function Header({gitHub, adminLinks}) {
 
 function TwitchStream() {
   const asyncHero = useAsync(channelStatus, []);
-  console.log(asyncHero.result)
 
   return (
     <div style={{padding: 24}}>
