@@ -12,7 +12,7 @@ async function fecthChannelStatus() {
   };
   let res = await axios(config);
   let {data} = res.data;
-  return data.result;
+  return data;
 }
 
 export async function channelStatus() {

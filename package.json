@@ -6,6 +6,7 @@
     "@reach/router": "1.2.0",
     "@tippy.js/react": "^2.2.2",
     "aws-serverless-express": "^3.3.6",
+    "axios": "^0.19.2",
     "cookie-parser": "^1.4.4",
     "date-fns": "2.9.0",
     "email-reply-parser": "^1.2.1",
