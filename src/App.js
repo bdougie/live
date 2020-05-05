@@ -50,6 +50,9 @@ import type {App_PostQueryResponse} from './__generated__/App_PostQuery.graphql'
 import type {Environment} from 'relay-runtime';
 import type {RelayNetworkError} from 'react-relay';
 
+import {useAsync} from 'react-async-hook';
+import {channelStatus} from './lib/Twitch';
+
 export const theme = deepMerge(generate(24, 10), {
   global: {
     colors: {
@@ -120,6 +123,8 @@ function Header({gitHub, adminLinks}) {
 }
 
 function TwitchStream() {
+  const asyncHero = useAsync(channelStatus, []);
+
   return (
     <div style={{padding: 24}}>
       <iframe
@@ -129,14 +134,20 @@ function TwitchStream() {
         scrolling="no"
         height="378"
         width="620"></iframe>
-        <iframe frameborder="<frameborder width>"
-        scrolling="<scrolling>"
-        id="bdougieYO>"
-        src="https://www.twitch.tv/embed/bdougieYO/chat?parent=mutualfun.live"
-        height="378"
-        width="620">
-</iframe>
-      <a style={{padding: 24}} href="https://www.twitch.tv/bdougieyo?tt_content=text_link&tt_medium=live_embed">
+      {asyncHero.loading && <div>Loading</div>}
+      {asyncHero.error && <div>Error: {asyncHero.error.message}</div>}
+      {asyncHero.result && (
+        <iframe
+          frameborder="<frameborder width>"
+          scrolling="<scrolling>"
+          id="bdougieYO>"
+          src="https://www.twitch.tv/embed/bdougieYO/chat?parent=mutualfun.live"
+          height="378"
+          width="620"></iframe>
+      )}
+      <a
+        style={{padding: 24}}
+        href="https://www.twitch.tv/bdougieyo?tt_content=text_link&tt_medium=live_embed">
         Watch bdougieYO on Twitch
       </a>
     </div>
@@ -155,21 +166,6 @@ const postsRootQuery = graphql`
       ...Avatar_gitHub @arguments(repoName: $repoName, repoOwner: $repoOwner)
       repository(name: $repoName, owner: $repoOwner) {
         ...Posts_repository
-      }
-
-      liveStatus: repository(name: "live", owner: "mutualfun") {
-        issues(
-          first: 10
-          orderBy: { direction: DESC, field: CREATED_AT }
-          filterBy: { labels: ["live"] }
-        ) {
-          edges {
-            node {
-              id
-              title
-            }
-          }
-        }
       }
     }
   }
@@ -230,7 +226,6 @@ function PostsRoot({preloadedQuery}: {preloadedQuery: any}) {
     postsRootQuery,
     preloadedQuery,
   );
-  console.log(data.github.liveStatus)
   const respository = data?.gitHub ? data?.gitHub.repository : null;
   if (!respository || !data.gitHub) {
     return <ErrorBox error={new Error('Repository not found.')} />;
