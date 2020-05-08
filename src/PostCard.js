@@ -224,20 +224,6 @@ type Props = {
   context: 'list' | 'details',
 };
 
-export function PostBox({children}: {children: React.Node}) {
-  return (
-    <Box
-      pad="medium"
-      style={{
-        maxWidth: 704,
-        width: '100%',
-        borderRadius: 2,
-      }}>
-      {children}
-    </Box>
-  );
-}
-
 export const ReactionBar = ({
   reactionGroups,
   subjectId,
@@ -458,34 +444,32 @@ export const Post = ({relay, post, context}: Props) => {
   );
   const authors = post.assignees.nodes || [];
   return (
-    <PostBox>
-      <Box
-        width="medium"
-        round="small"
-        pad="small"
-        margin={{vertical: 'small'}}
-        border={{size: 'small', type: 'solid', color: 'red'}}>
-        <Heading gap="small" level={4} margin="none">
-          {context === 'details' ? (
-            post.title
-          ) : (
-            <Link style={{color: 'inherit'}} to={postPath({post})}>
-              {post.title}
-            </Link>
-          )}
-        </Heading>
-        <Text margin={{vertical: "small"}} size="small">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-        </Text>
-        <ReactionBar
-          relay={relay}
-          subjectId={post.id}
-          reactionGroups={post.reactionGroups}
-        />
-      </Box>
-    </PostBox>
+    <Box
+      width="45%"
+      round="small"
+      pad="small"
+      margin={{top: 'small'}}
+      border={{size: 'small', type: 'solid', color: 'red'}}>
+      <Heading gap="small" level={4} margin="none">
+        {context === 'details' ? (
+          post.title
+        ) : (
+          <Link style={{color: 'inherit'}} to={postPath({post})}>
+            {post.title}
+          </Link>
+        )}
+      </Heading>
+      <Text margin={{vertical: 'small'}} size="small">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut
+      </Text>
+      <ReactionBar
+        relay={relay}
+        subjectId={post.id}
+        reactionGroups={post.reactionGroups}
+      />
+    </Box>
   );
 };
 

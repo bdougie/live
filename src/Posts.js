@@ -47,7 +47,13 @@ const Posts = ({relay, repository}: Props) => {
   const issues = repository.issues.edges || [];
 
   return (
-    <Box>
+    <Box
+      pad={{top: "medium", horizontal: "medium"}}
+      style={{
+        maxWidth: 704,
+        width: '100%',
+        borderRadius: 2,
+      }}>
       {issues.map((e, i) =>
         e && e.node ? (
           <PostCard key={e.node.id} context="list" post={e.node} />
