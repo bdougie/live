@@ -19,6 +19,19 @@
   height: 0;
 }
 
+.twitch .twitch-vod {
+  padding-top: 56.25%;
+  position: relative;
+  height: 0;
+}
+
+.twitch .twitch-vod iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
 .twitch .twitch-video iframe {
   position: absolute;
   width: 100%;
