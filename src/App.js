@@ -50,6 +50,9 @@ import type {App_PostQueryResponse} from './__generated__/App_PostQuery.graphql'
 import type {Environment} from 'relay-runtime';
 import type {RelayNetworkError} from 'react-relay';
 
+import {useAsync} from 'react-async-hook';
+import {channelStatus} from './lib/Twitch';
+
 export const theme = deepMerge(generate(24, 10), {
   global: {
     colors: {
@@ -126,7 +129,7 @@ function TwitchStream() {
         <iframe
           src="https://player.twitch.tv/?channel=bdougieYO&mutualfun.live&autoplay=false"
           frameborder="0"
-          allowfullscreen="true"
+          allowFullScreen="true"
           scrolling="no"
           height="100%"
           width="100%"></iframe>
@@ -140,11 +143,6 @@ function TwitchStream() {
           height="100%"
           width="100%"></iframe>
       </div>
-      <a
-        style={{padding: 24}}
-        href="https://www.twitch.tv/bdougieyo?tt_content=text_link&tt_medium=live_embed">
-        Watch bdougieYO on Twitch
-      </a>
     </div>
   );
 }
@@ -217,6 +215,7 @@ class ErrorBoundary extends React.Component<{children: *}, {error: ?Error}> {
 }
 
 function PostsRoot({preloadedQuery}: {preloadedQuery: any}) {
+  const asyncHero = useAsync(channelStatus, []);
   const data: App_QueryResponse = usePreloadedQuery<App_QueryResponse>(
     postsRootQuery,
     preloadedQuery,
@@ -228,7 +227,11 @@ function PostsRoot({preloadedQuery}: {preloadedQuery: any}) {
     return (
       <>
         <Header gitHub={data.gitHub} adminLinks={[]} />
-        <TwitchStream />
+        {asyncHero.error && <div>Error: {asyncHero.error.message}</div>}
+        {asyncHero.result &&
+          asyncHero.result.twitchTv.makeRestCall.get.jsonBody.stream && (
+            <TwitchStream />
+          )}
         <Posts repository={respository} />
       </>
     );
