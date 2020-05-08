@@ -4,6 +4,7 @@ import React from 'react';
 import graphql from 'babel-plugin-relay/macro';
 import {createPaginationContainer, type RelayProp} from 'react-relay';
 import Post from './Post';
+import PostCard from './PostCard';
 import type {Posts_repository} from './__generated__/Posts_repository.graphql';
 import LoadingSpinner from './loadingSpinner';
 import {Box} from 'grommet/components/Box';
@@ -49,7 +50,7 @@ const Posts = ({relay, repository}: Props) => {
     <Box>
       {issues.map((e, i) =>
         e && e.node ? (
-          <Post key={e.node.id} context="list" post={e.node} />
+          <PostCard key={e.node.id} context="list" post={e.node} />
         ) : null,
       )}
       {isLoading ? (
