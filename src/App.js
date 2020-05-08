@@ -89,6 +89,7 @@ export const theme = deepMerge(generate(24, 10), {
   },
 });
 
+
 const postsRootQuery = graphql`
   # repoName and repoOwner provided by fixedVariables
   query App_Query($repoName: String!, $repoOwner: String!)
