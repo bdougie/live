@@ -123,33 +123,26 @@ function Header({gitHub, adminLinks}) {
 }
 
 function TwitchStream() {
-  const asyncHero = useAsync(channelStatus, []);
-
   return (
-    <div style={{padding: 24}}>
-      <iframe
-        src="https://player.twitch.tv/?channel=bdougieYO"
-        frameborder="0"
-        allowfullscreen="true"
-        scrolling="no"
-        height="378"
-        width="620"></iframe>
-      {asyncHero.loading && <div>Loading</div>}
-      {asyncHero.error && <div>Error: {asyncHero.error.message}</div>}
-      {asyncHero.result && asyncHero.result.twitchTv.makeRestCall.get.jsonBody.stream && (
+    <div class="twitch">
+      <div class="twitch-video">
         <iframe
-          frameborder="<frameborder width>"
-          scrolling="<scrolling>"
+          src="https://player.twitch.tv/?channel=bdougieYO&mutualfun.live&autoplay=false"
+          frameborder="0"
+          allowFullScreen="true"
+          scrolling="no"
+          height="100%"
+          width="100%"></iframe>
+      </div>
+      <div class="twitch-chat">
+        <iframe
+          frameborder="0"
+          scrolling="no"
           id="bdougieYO>"
           src="https://www.twitch.tv/embed/bdougieYO/chat?parent=mutualfun.live"
-          height="378"
-          width="620"></iframe>
-      )}
-      <a
-        style={{padding: 24}}
-        href="https://www.twitch.tv/bdougieyo?tt_content=text_link&tt_medium=live_embed">
-        Watch bdougieYO on Twitch
-      </a>
+          height="100%"
+          width="100%"></iframe>
+      </div>
     </div>
   );
 }
@@ -222,6 +215,7 @@ class ErrorBoundary extends React.Component<{children: *}, {error: ?Error}> {
 }
 
 function PostsRoot({preloadedQuery}: {preloadedQuery: any}) {
+  const asyncHero = useAsync(channelStatus, []);
   const data: App_QueryResponse = usePreloadedQuery<App_QueryResponse>(
     postsRootQuery,
     preloadedQuery,
@@ -233,7 +227,11 @@ function PostsRoot({preloadedQuery}: {preloadedQuery: any}) {
     return (
       <>
         <Header gitHub={data.gitHub} adminLinks={[]} />
-        <TwitchStream />
+        {asyncHero.error && <div>Error: {asyncHero.error.message}</div>}
+        {asyncHero.result &&
+          asyncHero.result.twitchTv.makeRestCall.get.jsonBody.stream && (
+            <TwitchStream />
+          )}
         <Posts repository={respository} />
       </>
     );
