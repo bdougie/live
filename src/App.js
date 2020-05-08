@@ -121,22 +121,28 @@ function Header({gitHub, adminLinks}) {
 
 function TwitchStream() {
   return (
-    <div style={{padding: 24}}>
-      <iframe
-        src="https://player.twitch.tv/?channel=bdougieYO"
-        frameborder="0"
-        allowfullscreen="true"
-        scrolling="no"
-        height="378"
-        width="620"></iframe>
-        <iframe frameborder="<frameborder width>"
-        scrolling="<scrolling>"
-        id="bdougieYO>"
-        src="https://www.twitch.tv/embed/bdougieYO/chat?parent=mutualfun.live"
-        height="378"
-        width="620">
-</iframe>
-      <a style={{padding: 24}} href="https://www.twitch.tv/bdougieyo?tt_content=text_link&tt_medium=live_embed">
+    <div class="twitch">
+      <div class="twitch-video">
+        <iframe
+          src="https://player.twitch.tv/?channel=bdougieYO&mutualfun.live&autoplay=false"
+          frameborder="0"
+          allowfullscreen="true"
+          scrolling="no"
+          height="100%"
+          width="100%"></iframe>
+      </div>
+      <div class="twitch-chat">
+        <iframe
+          frameborder="0"
+          scrolling="no"
+          id="bdougieYO>"
+          src="https://www.twitch.tv/embed/bdougieYO/chat?parent=mutualfun.live"
+          height="100%"
+          width="100%"></iframe>
+      </div>
+      <a
+        style={{padding: 24}}
+        href="https://www.twitch.tv/bdougieyo?tt_content=text_link&tt_medium=live_embed">
         Watch bdougieYO on Twitch
       </a>
     </div>
