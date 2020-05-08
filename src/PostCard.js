@@ -462,9 +462,10 @@ export const Post = ({relay, post, context}: Props) => {
       <Box
         width="medium"
         round="small"
-        pad="medium"
+        pad="small"
+        margin={{vertical: 'small'}}
         border={{size: 'small', type: 'solid', color: 'red'}}>
-        <Heading level={4} margin="none">
+        <Heading gap="small" level={4} margin="none">
           {context === 'details' ? (
             post.title
           ) : (
@@ -473,7 +474,7 @@ export const Post = ({relay, post, context}: Props) => {
             </Link>
           )}
         </Heading>
-        <Text size="small">
+        <Text margin={{vertical: "small"}} size="small">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
