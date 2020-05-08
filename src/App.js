@@ -12,7 +12,7 @@ import {
   preloadQuery,
 } from 'react-relay/hooks';
 import Posts from './Posts';
-import Post, {PostBox} from './Post';
+import Post from './Post';
 import Comments from './Comments';
 import {onegraphAuth} from './Environment';
 import {Router, Location} from '@reach/router';
@@ -89,7 +89,6 @@ export const theme = deepMerge(generate(24, 10), {
   },
 });
 
-
 const postsRootQuery = graphql`
   # repoName and repoOwner provided by fixedVariables
   query App_Query($repoName: String!, $repoOwner: String!)
@@ -159,6 +158,9 @@ class ErrorBoundary extends React.Component<{children: *}, {error: ?Error}> {
 
 function PostsRoot({preloadedQuery}: {preloadedQuery: any}) {
   const asyncHero = useAsync(channelStatus, []);
+  const asyncResultBool =
+    asyncHero.result &&
+    asyncHero.result.twitchTv.makeRestCall.get.jsonBody.stream === null;
   const data: App_QueryResponse = usePreloadedQuery<App_QueryResponse>(
     postsRootQuery,
     preloadedQuery,
@@ -171,10 +173,7 @@ function PostsRoot({preloadedQuery}: {preloadedQuery: any}) {
       <>
         <Header gitHub={data.gitHub} adminLinks={[]} />
         {asyncHero.error && <div>Error: {asyncHero.error.message}</div>}
-        {asyncHero.result &&
-          asyncHero.result.twitchTv.makeRestCall.get.jsonBody.stream ? (
-            <TwitchStream />
-          ) : <TwitchVOD />}
+        {!asyncResultBool ? <TwitchStream /> : <TwitchVOD />}
         <Posts repository={respository} />
       </>
     );
