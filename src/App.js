@@ -39,7 +39,7 @@ import {editIssueUrl} from './issueUrls';
 import {Github} from 'grommet-icons/icons/Github';
 import PreloadCache from './preloadQueryCache';
 import PreloadCacheContext from './PreloadCacheContext';
-import {TwitchStream, TwitchVOD} from './TwtichStream';
+import {TwitchStream, TwitchVOD} from './TwitchStream';
 import Header from './Header';
 
 import type {LoginStatus} from './UserContext';
