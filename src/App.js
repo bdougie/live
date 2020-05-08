@@ -39,6 +39,8 @@ import {editIssueUrl} from './issueUrls';
 import {Github} from 'grommet-icons/icons/Github';
 import PreloadCache from './preloadQueryCache';
 import PreloadCacheContext from './PreloadCacheContext';
+import {TwitchStream, TwitchVOD} from './TwtichStream';
+import Header from './Header';
 
 import type {LoginStatus} from './UserContext';
 import type {
@@ -87,65 +89,6 @@ export const theme = deepMerge(generate(24, 10), {
   },
 });
 
-function Header({gitHub, adminLinks}) {
-  return (
-    <>
-      <Box margin="medium" style={{position: 'absolute', top: 0, right: 0}}>
-        <Avatar gitHub={gitHub} adminLinks={adminLinks} />
-      </Box>
-      <PostBox>
-        <Box
-          pad={{horizontal: 'medium'}}
-          border={{
-            size: 'xsmall',
-            side: 'bottom',
-            color: 'rgba(0,0,0,0.1)',
-          }}>
-          <Heading style={{marginTop: 0}} level={1}>
-            <Link
-              getProps={({isCurrent}) => ({
-                style: isCurrent
-                  ? {
-                      textDecoration: 'none',
-                      color: 'inherit',
-                      cursor: 'auto',
-                    }
-                  : {color: 'inherit'},
-              })}
-              to="/">
-              {config.title || 'OneBlog'}
-            </Link>
-          </Heading>
-        </Box>
-      </PostBox>
-    </>
-  );
-}
-
-function TwitchStream() {
-  return (
-    <div class="twitch">
-      <div class="twitch-video">
-        <iframe
-          src="https://player.twitch.tv/?channel=bdougieYO&mutualfun.live&autoplay=false"
-          frameborder="0"
-          allowFullScreen="true"
-          scrolling="no"
-          height="100%"
-          width="100%"></iframe>
-      </div>
-      <div class="twitch-chat">
-        <iframe
-          frameborder="0"
-          scrolling="no"
-          id="bdougieYO>"
-          src="https://www.twitch.tv/embed/bdougieYO/chat?parent=mutualfun.live"
-          height="100%"
-          width="100%"></iframe>
-      </div>
-    </div>
-  );
-}
 
 const postsRootQuery = graphql`
   # repoName and repoOwner provided by fixedVariables
@@ -229,9 +172,9 @@ function PostsRoot({preloadedQuery}: {preloadedQuery: any}) {
         <Header gitHub={data.gitHub} adminLinks={[]} />
         {asyncHero.error && <div>Error: {asyncHero.error.message}</div>}
         {asyncHero.result &&
-          asyncHero.result.twitchTv.makeRestCall.get.jsonBody.stream && (
+          asyncHero.result.twitchTv.makeRestCall.get.jsonBody.stream ? (
             <TwitchStream />
-          )}
+          ) : <TwitchVOD />}
         <Posts repository={respository} />
       </>
     );
