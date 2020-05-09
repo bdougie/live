@@ -7,8 +7,7 @@ import Post from './Post';
 import PostCard from './PostCard';
 import type {Posts_repository} from './__generated__/Posts_repository.graphql';
 import LoadingSpinner from './loadingSpinner';
-import {Box} from 'grommet/components/Box';
-import {Grid} from 'grommet/components/Grid';
+import {Box} from 'grommet/components';
 
 type Props = {|
   relay: RelayProp,
