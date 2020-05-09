@@ -424,6 +424,11 @@ export function computePostDate(post: {
   return new Date(post.createdAt);
 }
 
+function truncateString(str) {
+  const num = 140;
+  return str.length > num ? str.slice(0, num) + '...' : str;
+}
+
 export const Post = ({relay, post, context}: Props) => {
   const environment = useRelayEnvironment();
   const cache = React.useContext(PreloadCacheContext);
@@ -449,7 +454,7 @@ export const Post = ({relay, post, context}: Props) => {
       round="small"
       pad="small"
       margin={{right: 'small', top: 'small'}}
-      border={{size: 'small', style: 'dotted', color: 'black'}}>
+      border={{size: 'small', style: 'dashed', color: 'rgba(0,0,0,0.4)'}}>
       <Heading gap="small" level={4} margin="none">
         {context === 'details' ? (
           post.title
@@ -460,9 +465,10 @@ export const Post = ({relay, post, context}: Props) => {
         )}
       </Heading>
       <Text margin={{vertical: 'small'}} size="small">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut
+        <MarkdownRenderer
+          escapeHtml={true}
+          source={truncateString(post.body)}
+        />
       </Text>
       <ReactionBar
         relay={relay}
