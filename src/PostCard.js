@@ -34,13 +34,13 @@ import PreloadCacheContext from './PreloadCacheContext';
 import {ResponsiveContext} from 'grommet/contexts';
 import laptop from '../img/_laptop.jpg';
 
-import type {Post_post} from './__generated__/Post_post.graphql';
+import type {PostCard_post} from './__generated__/PostCard_post.graphql';
 
 // n.b. no accessToken in the persistedQueryConfiguration for these mutations,
 // because we want to add reactions on behalf of the logged-in user, not the
 // persisted auth
 const addReactionMutation = graphql`
-  mutation Post_AddReactionMutation($input: GitHubAddReactionInput!)
+  mutation PostCard_AddReactionMutation($input: GitHubAddReactionInput!)
     @persistedQueryConfiguration(freeVariables: ["input"]) {
     gitHub {
       addReaction(input: $input) {
@@ -52,7 +52,7 @@ const addReactionMutation = graphql`
           }
           reactable {
             ... on GitHubIssue {
-              ...Post_post
+              ...PostCard_post
             }
             ... on GitHubComment {
               ...Comment_comment
@@ -65,7 +65,7 @@ const addReactionMutation = graphql`
 `;
 
 const removeReactionMutation = graphql`
-  mutation Post_RemoveReactionMutation($input: GitHubRemoveReactionInput!)
+  mutation PostCard_RemoveReactionMutation($input: GitHubRemoveReactionInput!)
     @persistedQueryConfiguration(freeVariables: ["input"]) {
     gitHub {
       removeReaction(input: $input) {
@@ -77,7 +77,7 @@ const removeReactionMutation = graphql`
           }
           reactable {
             ... on GitHubIssue {
-              ...Post_post
+              ...PostCard_post
             }
             ... on GitHubComment {
               ...Comment_comment
@@ -223,7 +223,7 @@ const EmojiPicker = ({
 
 type Props = {
   relay: RelayProp,
-  post: Post_post,
+  post: PostCard_post,
   context: 'list' | 'details',
 };
 
@@ -432,7 +432,7 @@ function truncateString(str) {
   return str.length > num ? str.slice(0, num) + '...' : str;
 }
 
-export const Post = ({relay, post, context}: Props) => {
+export const PostCard = ({relay, post, context}: Props) => {
   const environment = useRelayEnvironment();
   const cache = React.useContext(PreloadCacheContext);
   React.useEffect(() => {
@@ -495,9 +495,9 @@ export const Post = ({relay, post, context}: Props) => {
   );
 };
 
-export default createFragmentContainer(Post, {
+export default createFragmentContainer(PostCard, {
   post: graphql`
-    fragment Post_post on GitHubIssue {
+    fragment PostCard_post on GitHubIssue {
       id
       number
       title
@@ -505,15 +505,6 @@ export default createFragmentContainer(Post, {
       createdAt
       updatedAt
       url
-      assignees(first: 10) {
-        nodes {
-          id
-          name
-          login
-          avatarUrl(size: 96)
-          url
-        }
-      }
       reactionGroups {
         content
         viewerHasReacted
