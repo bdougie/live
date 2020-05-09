@@ -49,6 +49,7 @@ const Posts = ({relay, repository}: Props) => {
   return (
     <Box
       pad={{top: 'medium', horizontal: 'medium'}}
+      margin={{bottom: 'large'}}
       wrap={true}
       style={{
         width: '100%',

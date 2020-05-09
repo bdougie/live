@@ -32,7 +32,6 @@ import {StatusCritical} from 'grommet-icons/icons/StatusCritical';
 import UserContext from './UserContext';
 import {Helmet} from 'react-helmet';
 import {ScrollContext} from 'gatsby-react-router-scroll';
-import Avatar from './Avatar';
 import config from './config';
 import {css} from 'styled-components';
 import {editIssueUrl} from './issueUrls';
@@ -172,6 +171,14 @@ function PostsRoot({preloadedQuery}: {preloadedQuery: any}) {
     return (
       <>
         <Header gitHub={data.gitHub} adminLinks={[]} />
+        <nav style={{margin: 16, textAlign: "center"}}>
+          <Anchor style={{textDecoration: "none", marginRight: 16}} href="https://github.com/mutualfun">Code</Anchor>
+          <Anchor style={{textDecoration: "none", marginRight: 16}}  href="https://twitch.tv/bdougieYO">Streams</Anchor>
+          <Anchor style={{textDecoration: "none", marginRight: 16}}  href="https://twitter.com/bdougieyo">Twitter</Anchor>
+          <Anchor style={{textDecoration: "none", marginRight: 16}}  href="https://www.youtube.com/channel/UCklWxKrTti61ZCROE1e5-MQ/playlists">
+            Archive & Clips
+          </Anchor>
+        </nav>
         {asyncHero.error && <div>Error: {asyncHero.error.message}</div>}
         {!asyncResultBool ? <TwitchStream /> : <TwitchVOD />}
         <Posts repository={respository} />
