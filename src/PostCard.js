@@ -31,7 +31,7 @@ import parse from 'remark-parse';
 import imageUrl from './imageUrl';
 import {Helmet} from 'react-helmet';
 import PreloadCacheContext from './PreloadCacheContext';
-import laptop from "../img/_laptop.jpg";
+import laptop from '../img/_laptop.jpg';
 
 import type {Post_post} from './__generated__/Post_post.graphql';
 
@@ -457,28 +457,23 @@ export const Post = ({relay, post, context}: Props) => {
       pad="small"
       margin={{right: 'small', top: 'small'}}
       border={{size: 'small', style: 'dashed', color: 'rgba(0,0,0,0.4)'}}>
-      <Box
-        margin={{bottom: 'small'}}
-        height="small"
-        width="medium">
-        <Image
-          fit="cover"
-          src={laptop}
-          style={{
-            borderRadius: 12,
-            overflow: "hidden",
-            boxShadow: "5px 5px 5px rgba(0,0,0,0.3)"
-          }}
-        />
-      </Box>
+      <Link style={{color: 'inherit'}} to={postPath({post})}>
+        <Box margin={{bottom: 'small'}} height="small" width="medium">
+          <Image
+            fit="cover"
+            src={laptop}
+            style={{
+              borderRadius: 12,
+              overflow: 'hidden',
+              boxShadow: '5px 5px 5px rgba(0,0,0,0.3)',
+            }}
+          />
+        </Box>
+      </Link>
       <Heading gap="small" level={4} margin="none">
-        {context === 'details' ? (
-          post.title
-        ) : (
-          <Link style={{color: 'inherit'}} to={postPath({post})}>
-            {post.title}
-          </Link>
-        )}
+        <Link style={{color: 'inherit'}} to={postPath({post})}>
+          {post.title}
+        </Link>
       </Heading>
       <Text margin={{vertical: 'small'}} size="small">
         <MarkdownRenderer
