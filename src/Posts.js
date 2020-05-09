@@ -8,6 +8,7 @@ import PostCard from './PostCard';
 import type {Posts_repository} from './__generated__/Posts_repository.graphql';
 import LoadingSpinner from './loadingSpinner';
 import {Box} from 'grommet/components/Box';
+import {Grid} from 'grommet/components/Grid';
 
 type Props = {|
   relay: RelayProp,
@@ -48,11 +49,13 @@ const Posts = ({relay, repository}: Props) => {
 
   return (
     <Box
-      pad={{top: "medium", horizontal: "medium"}}
+      pad={{top: 'medium', horizontal: 'medium'}}
+      wrap={true}
       style={{
-        maxWidth: 704,
         width: '100%',
-        borderRadius: 2,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
       }}>
       {issues.map((e, i) =>
         e && e.node ? (
@@ -61,8 +64,6 @@ const Posts = ({relay, repository}: Props) => {
       )}
       {isLoading ? (
         <Box
-          align="center"
-          margin="medium"
           style={{
             maxWidth: 704,
           }}>

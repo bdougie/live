@@ -445,11 +445,11 @@ export const Post = ({relay, post, context}: Props) => {
   const authors = post.assignees.nodes || [];
   return (
     <Box
-      width="45%"
+      width="48%"
       round="small"
       pad="small"
-      margin={{top: 'small'}}
-      border={{size: 'small', type: 'solid', color: 'red'}}>
+      margin={{right: 'small', top: 'small'}}
+      border={{size: 'small', style: 'dotted', color: 'black'}}>
       <Heading gap="small" level={4} margin="none">
         {context === 'details' ? (
           post.title
