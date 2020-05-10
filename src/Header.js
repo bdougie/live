@@ -20,7 +20,7 @@ export default function Header({gitHub, adminLinks}) {
             side: 'bottom',
             color: 'rgba(0,0,0,0.1)',
           }}>
-          <Heading style={{marginTop: 0}} level={1}>
+          <Heading style={{fontFamily: "SFMono-Regular", marginTop: 0, textAlign: "center"}} level={1}>
             <Link
               getProps={({isCurrent}) => ({
                 style: isCurrent

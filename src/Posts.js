@@ -4,9 +4,10 @@ import React from 'react';
 import graphql from 'babel-plugin-relay/macro';
 import {createPaginationContainer, type RelayProp} from 'react-relay';
 import Post from './Post';
+import PostCard from './PostCard';
 import type {Posts_repository} from './__generated__/Posts_repository.graphql';
 import LoadingSpinner from './loadingSpinner';
-import {Box} from 'grommet/components/Box';
+import {Box} from 'grommet/components';
 
 type Props = {|
   relay: RelayProp,
@@ -46,16 +47,23 @@ const Posts = ({relay, repository}: Props) => {
   const issues = repository.issues.edges || [];
 
   return (
-    <Box>
+    <Box
+      pad={{top: 'medium', horizontal: 'medium'}}
+      margin={{bottom: 'large'}}
+      wrap={true}
+      style={{
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+      }}>
       {issues.map((e, i) =>
         e && e.node ? (
-          <Post key={e.node.id} context="list" post={e.node} />
+          <PostCard key={e.node.id} context="list" post={e.node} />
         ) : null,
       )}
       {isLoading ? (
         <Box
-          align="center"
-          margin="medium"
           style={{
             maxWidth: 704,
           }}>
@@ -84,11 +92,11 @@ export default createPaginationContainer(
           after: $cursor
           orderBy: $orderBy
           labels: ["publish", "Publish"]
-        ) @connection(key: "Posts_posts_issues") {
+        ) @connection(key: "PostsCard_posts_issues") {
           edges {
             node {
               id
-              ...Post_post
+              ...PostCard_post
             }
           }
         }

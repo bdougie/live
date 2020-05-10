@@ -12,7 +12,7 @@ import {
   preloadQuery,
 } from 'react-relay/hooks';
 import Posts from './Posts';
-import Post, {PostBox} from './Post';
+import Post from './Post';
 import Comments from './Comments';
 import {onegraphAuth} from './Environment';
 import {Router, Location} from '@reach/router';
@@ -32,14 +32,13 @@ import {StatusCritical} from 'grommet-icons/icons/StatusCritical';
 import UserContext from './UserContext';
 import {Helmet} from 'react-helmet';
 import {ScrollContext} from 'gatsby-react-router-scroll';
-import Avatar from './Avatar';
 import config from './config';
 import {css} from 'styled-components';
 import {editIssueUrl} from './issueUrls';
 import {Github} from 'grommet-icons/icons/Github';
 import PreloadCache from './preloadQueryCache';
 import PreloadCacheContext from './PreloadCacheContext';
-import {TwitchStream, TwitchVOD} from './TwtichStream';
+import {TwitchStream, TwitchVOD} from './TwitchStream';
 import Header from './Header';
 
 import type {LoginStatus} from './UserContext';
@@ -88,7 +87,6 @@ export const theme = deepMerge(generate(24, 10), {
     },
   },
 });
-
 
 const postsRootQuery = graphql`
   # repoName and repoOwner provided by fixedVariables
@@ -159,6 +157,9 @@ class ErrorBoundary extends React.Component<{children: *}, {error: ?Error}> {
 
 function PostsRoot({preloadedQuery}: {preloadedQuery: any}) {
   const asyncHero = useAsync(channelStatus, []);
+  const asyncResultBool =
+    asyncHero.result &&
+    asyncHero.result.twitchTv.makeRestCall.get.jsonBody.stream === null;
   const data: App_QueryResponse = usePreloadedQuery<App_QueryResponse>(
     postsRootQuery,
     preloadedQuery,
@@ -170,11 +171,16 @@ function PostsRoot({preloadedQuery}: {preloadedQuery: any}) {
     return (
       <>
         <Header gitHub={data.gitHub} adminLinks={[]} />
+        <nav style={{margin: 16, textAlign: "center"}}>
+          <Anchor style={{textDecoration: "none", marginRight: 16}} href="https://github.com/mutualfun">Code</Anchor>
+          <Anchor style={{textDecoration: "none", marginRight: 16}}  href="https://twitch.tv/bdougieYO">Streams</Anchor>
+          <Anchor style={{textDecoration: "none", marginRight: 16}}  href="https://twitter.com/bdougieyo">Twitter</Anchor>
+          <Anchor style={{textDecoration: "none", marginRight: 16}}  href="https://www.youtube.com/channel/UCklWxKrTti61ZCROE1e5-MQ/playlists">
+            Archive & Clips
+          </Anchor>
+        </nav>
         {asyncHero.error && <div>Error: {asyncHero.error.message}</div>}
-        {asyncHero.result &&
-          asyncHero.result.twitchTv.makeRestCall.get.jsonBody.stream ? (
-            <TwitchStream />
-          ) : <TwitchVOD />}
+        {!asyncResultBool ? <TwitchStream /> : <TwitchVOD />}
         <Posts repository={respository} />
       </>
     );
@@ -228,6 +234,7 @@ function PostRoot({preloadedQuery}: {preloadedQuery: any}) {
 
   const post = data?.gitHub?.repository?.issue;
   const labels = post?.labels?.nodes;
+  console.log(labels)
   if (
     !data ||
     !data.gitHub ||
