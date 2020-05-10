@@ -450,7 +450,6 @@ export const PostCard = ({relay, post, context}: Props) => {
   const usedReactions = (post.reactionGroups || []).filter(
     g => g.users.totalCount > 0,
   );
-  const authors = post.assignees.nodes || [];
   return (
     <ResponsiveContext.Consumer>
         {responsive => (
