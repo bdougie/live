@@ -234,6 +234,7 @@ function PostRoot({preloadedQuery}: {preloadedQuery: any}) {
 
   const post = data?.gitHub?.repository?.issue;
   const labels = post?.labels?.nodes;
+  console.log(labels)
   if (
     !data ||
     !data.gitHub ||

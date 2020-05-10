@@ -92,11 +92,11 @@ export default createPaginationContainer(
           after: $cursor
           orderBy: $orderBy
           labels: ["publish", "Publish"]
-        ) @connection(key: "Posts_posts_issues") {
+        ) @connection(key: "PostsCard_posts_issues") {
           edges {
             node {
               id
-              ...Post_post
+              ...PostCard_post
             }
           }
         }
