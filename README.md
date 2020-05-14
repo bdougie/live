@@ -1,4 +1,25 @@
-# Build a blog powered by GitHub issues
+# mutalfun.live
+Blog powered by GitHub issues
+
+A location where individuals can come together and watch a few people stream their code. This repo is powered by [mutualfun/oneblog](https://github.com/mutualfun/oneblog).
+
+Schedule for streams can be found at [twitch.tv/bdougieYO](https://www.twitch.tv/bdougieyo).
+
+## Plan for the future. 
+
+1. Invite others to live code with @bdougie
+2. Show off code and talk about projects. 
+3. Answer code questions
+
+## Links
+
+- Twitch: https://twitch.tv/bdougieYO
+- Youtube: https://www.youtube.com/channel/UCklWxKrTti61ZCROE1e5-MQ
+- GitHub: https://github.com/mutual/live
+- Site: https://mutualfun.io
+- Twitter: https://twitter.com/bdougieYO
+
+## Details
 
 This repo powers the OneGraph Product Updates blog at [onegraph.com/changelog](https://www.onegraph.com/changelog).
 
