@@ -28,11 +28,10 @@ import {lowerCase} from 'lower-case';
 import {sentenceCase} from 'sentence-case';
 import unified from 'unified';
 import parse from 'remark-parse';
-import imageUrl from './imageUrl';
 import {Helmet} from 'react-helmet';
 import PreloadCacheContext from './PreloadCacheContext';
 import {ResponsiveContext} from 'grommet/contexts';
-import laptop from '../img/_laptop.jpg';
+import imgPicker from './lib/imgPicker';
 
 import type {PostCard_post} from './__generated__/PostCard_post.graphql';
 
@@ -450,46 +449,49 @@ export const PostCard = ({relay, post, context}: Props) => {
   const usedReactions = (post.reactionGroups || []).filter(
     g => g.users.totalCount > 0,
   );
+
+  const labels = post.labels.edges
+
   return (
     <ResponsiveContext.Consumer>
-        {responsive => (
-      <Box
-        width={responsive === "small" ? "100%" : "48%"}
-        round="small"
-        pad="small"
-        margin={{right: 'small', top: 'small'}}
-        border={{size: 'small', style: 'dashed', color: 'rgba(0,0,0,0.4)'}}>
-        <Link style={{color: 'inherit'}} to={postPath({post})}>
-          <Box margin={{bottom: 'small'}} height="small" width="medium">
-            <Image
-              fit="cover"
-              src={laptop}
-              style={{
-                borderRadius: 12,
-                overflow: 'hidden',
-                boxShadow: '5px 5px 5px rgba(0,0,0,0.3)',
-              }}
-            />
-          </Box>
-        </Link>
-        <Heading gap="small" level={4} margin="none">
+      {responsive => (
+        <Box
+          width={responsive === 'small' ? '100%' : '48%'}
+          round="small"
+          pad="small"
+          margin={{right: 'small', top: 'small'}}
+          border={{size: 'small', style: 'dashed', color: 'rgba(0,0,0,0.4)'}}>
           <Link style={{color: 'inherit'}} to={postPath({post})}>
-            {post.title}
+            <Box margin={{bottom: 'small'}} height="small" width="medium">
+              <Image
+                fit="cover"
+                src={imgPicker(labels)}
+                style={{
+                  borderRadius: 12,
+                  overflow: 'hidden',
+                  boxShadow: '5px 5px 5px rgba(0,0,0,0.3)',
+                }}
+              />
+            </Box>
           </Link>
-        </Heading>
-        <Text margin={{vertical: 'small'}} size="small">
-          <MarkdownRenderer
-            escapeHtml={true}
-            source={truncateString(post.body)}
+          <Heading gap="small" level={4} margin="none">
+            <Link style={{color: 'inherit'}} to={postPath({post})}>
+              {post.title}
+            </Link>
+          </Heading>
+          <Text margin={{vertical: 'small'}} size="small">
+            <MarkdownRenderer
+              escapeHtml={true}
+              source={truncateString(post.body)}
+            />
+          </Text>
+          <ReactionBar
+            relay={relay}
+            subjectId={post.id}
+            reactionGroups={post.reactionGroups}
           />
-        </Text>
-        <ReactionBar
-          relay={relay}
-          subjectId={post.id}
-          reactionGroups={post.reactionGroups}
-        />
         </Box>
-        )}
+      )}
     </ResponsiveContext.Consumer>
   );
 };
@@ -504,6 +506,13 @@ export default createFragmentContainer(PostCard, {
       createdAt
       updatedAt
       url
+      labels(first: 100) {
+        edges {
+          node {
+            name
+          }
+        }
+      }
       reactionGroups {
         content
         viewerHasReacted
