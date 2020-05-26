@@ -18,6 +18,7 @@ Schedule for streams can be found at [twitch.tv/bdougieYO](https://www.twitch.tv
 - GitHub: https://github.com/mutual/live
 - Site: https://mutualfun.io
 - Twitter: https://twitter.com/bdougieYO
+- Discord: https://discord.gg/gZMKK5q
 
 ## Details
 
