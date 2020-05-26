@@ -25,6 +25,7 @@ _DAY_ _CAL_DATE_ _TIME_ UTC-7
 - [Twitter](https://twitter.com/bdougieyo)
 - [MutualFun on GitHub](https://github.com/mutualfun/live)
 - [MutualFun site](https://mutualfun.io)
+- [MutualFun Discord](https://discord.gg/gZMKK5q)
 - [Spotify Music playlist](https://open.spotify.com/playlist/7zrrIjhj4DuiVC9D6MRVMZ?si=S0QGUYxZTmC278Qw_jMwZg)
 - [Party Corgi Streamer Discord](https://discordapp.com/invite/S9Gdagv)
-- [The Live Coders](https://livecoders.dev
+- [The Live Coders](https://livecoders.dev)
