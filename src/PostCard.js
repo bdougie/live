@@ -450,7 +450,7 @@ export const PostCard = ({relay, post, context}: Props) => {
     g => g.users.totalCount > 0,
   );
 
-  const labels = post.labels.edges
+  const labels = post.labels.edges;
 
   return (
     <ResponsiveContext.Consumer>
@@ -459,8 +459,7 @@ export const PostCard = ({relay, post, context}: Props) => {
           width={responsive === 'small' ? '100%' : '48%'}
           round="small"
           pad="small"
-          margin={{right: 'small', top: 'small'}}
-          border={{size: 'small', style: 'dashed', color: 'rgba(0,0,0,0.4)'}}>
+          margin={{right: 'small', top: 'small'}}>
           <Link style={{color: 'inherit'}} to={postPath({post})}>
             <Box margin={{bottom: 'small'}} height="small" width="medium">
               <Image
