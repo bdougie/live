@@ -61,10 +61,6 @@ export const theme = deepMerge(generate(24, 10), {
       'accent-1': '#3cc7b7',
       focus: 'rgba(60, 199, 183, 0.75)',
     },
-    font: {
-      family:
-        '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif',
-    },
   },
   anchor: {
     fontWeight: 'normal',
