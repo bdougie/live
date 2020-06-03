@@ -61,10 +61,6 @@ export const theme = deepMerge(generate(24, 10), {
       'accent-1': '#3cc7b7',
       focus: 'rgba(60, 199, 183, 0.75)',
     },
-    font: {
-      family:
-        '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif',
-    },
   },
   anchor: {
     fontWeight: 'normal',
@@ -172,11 +168,12 @@ function PostsRoot({preloadedQuery}: {preloadedQuery: any}) {
       <>
         <Header gitHub={data.gitHub} adminLinks={[]} />
         <nav style={{margin: 16, textAlign: "center"}}>
-          <Anchor style={{textDecoration: "none", marginRight: 16}} href="https://github.com/mutualfun">Code</Anchor>
-          <Anchor style={{textDecoration: "none", marginRight: 16}}  href="https://twitch.tv/bdougieYO">Streams</Anchor>
-          <Anchor style={{textDecoration: "none", marginRight: 16}}  href="https://twitter.com/bdougieyo">Twitter</Anchor>
-          <Anchor style={{textDecoration: "none", marginRight: 16}}  href="https://www.youtube.com/channel/UCklWxKrTti61ZCROE1e5-MQ/playlists">
-            Archive & Clips
+          <Anchor style={{color: "#8b8b8b", textDecoration: "none", marginRight: 16}} href="https://github.com/mutualfun">Code</Anchor>
+          <Anchor style={{color: "#8b8b8b", textDecoration: "none", marginRight: 16}}  href="https://twitch.tv/bdougieYO">Twitch</Anchor>
+          <Anchor style={{color: "#8b8b8b", textDecoration: "none", marginRight: 16}}  href="https://twitter.com/bdougieyo">Twitter</Anchor>
+          <Anchor style={{color: "#8b8b8b", textDecoration: "none", marginRight: 16}}  href="https://discord.com/invite/gZMKK5q">Discord</Anchor>
+          <Anchor style={{color: "#8b8b8b", textDecoration: "none", marginRight: 16}}  href="https://www.youtube.com/channel/UCklWxKrTti61ZCROE1e5-MQ/playlists">
+            Youtube
           </Anchor>
         </nav>
         {asyncHero.error && <div>Error: {asyncHero.error.message}</div>}
