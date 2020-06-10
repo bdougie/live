@@ -11,17 +11,8 @@
 ```
 Live now! _ISSUE TITLE_
 
-Twitch: https://twitch.tv/me8bot
+Twitch: https://twitch.tv/bdougieYO
 Youtube: https://www.youtube.com/channel/UCklWxKrTti61ZCROE1e5-MQ
 GitHub: https://github.com/MutualFun/live/issues/_NUM_
-Site: https://mutualfun.io
+Site: https://bdougie.live
 ```
-
-## Script
-
-- **Intro:** Time for MutualFun
-- **Outro:** Thanks and this has been MutualFun
-
-## More Links to open
-
-- https://restream.io/channel
