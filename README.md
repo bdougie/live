@@ -1,7 +1,7 @@
 # mutalfun.live
 Blog powered by GitHub issues
 
-A location where individuals can come together and watch a few people stream their code. This repo is powered by [mutualfun/oneblog](https://github.com/mutualfun/oneblog).
+A location where individuals can come together and watch a few people stream their code. This repo is powered by [oneblog](https://github.com/ongraph/oneblog).
 
 Schedule for streams can be found at [twitch.tv/bdougieYO](https://www.twitch.tv/bdougieyo).
 
