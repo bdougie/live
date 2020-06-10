@@ -1,4 +1,4 @@
-# mutalfun.live
+# bdougie.live
 Blog powered by GitHub issues
 
 A location where individuals can come together and watch a few people stream their code. This repo is powered by [oneblog](https://github.com/ongraph/oneblog).
@@ -15,8 +15,8 @@ Schedule for streams can be found at [twitch.tv/bdougieYO](https://www.twitch.tv
 
 - Twitch: https://twitch.tv/bdougieYO
 - Youtube: https://www.youtube.com/channel/UCklWxKrTti61ZCROE1e5-MQ
-- GitHub: https://github.com/mutual/live
-- Site: https://mutualfun.io
+- GitHub: https://github.com/bdougie/live
+- Site: https://bdougie.live
 - Twitter: https://twitter.com/bdougieYO
 - Discord: https://discord.gg/gZMKK5q
 
