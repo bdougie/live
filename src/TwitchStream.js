@@ -5,7 +5,7 @@ export function TwitchStream() {
     <div class="twitch">
       <div class="twitch-video">
         <iframe
-          src="https://player.twitch.tv/?channel=bdougieYO&parent=bdougie.live&autoplay=false"
+          src="https://player.twitch.tv/?channel=bdougieYO&parent=www.bdougie.live&parent=localhost&parent=bdougie.live&autoplay=false"
           frameborder="0"
           allowFullScreen="true"
           scrolling="no"
@@ -17,7 +17,7 @@ export function TwitchStream() {
           frameborder="0"
           scrolling="no"
           id="bdougieYO>"
-          src="https://www.twitch.tv/embed/bdougieYO/chat?parent=bdougie.live"
+          src="https://www.twitch.tv/embed/bdougieYO/chat?parent=localhost&parent=www.bdougie.live&parent=bdougie.live"
           height="100%"
           width="100%"></iframe>
       </div>
