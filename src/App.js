@@ -168,11 +168,11 @@ function PostsRoot({preloadedQuery}: {preloadedQuery: any}) {
       <>
         <Header gitHub={data.gitHub} adminLinks={[]} />
         <nav style={{margin: 16, textAlign: "center"}}>
-          <Anchor style={{color: "#8b8b8b", textDecoration: "none", marginRight: 16}} href="https://github.com/bdougie/live">Code</Anchor>
+          <Anchor style={{color: "#8b8b8b", textDecoration: "none", marginRight: 16}} href="https://github.com/bdougie/live">GitHub</Anchor>
           <Anchor style={{color: "#8b8b8b", textDecoration: "none", marginRight: 16}}  href="https://twitch.tv/bdougieYO">Twitch</Anchor>
           <Anchor style={{color: "#8b8b8b", textDecoration: "none", marginRight: 16}}  href="https://twitter.com/bdougieyo">Twitter</Anchor>
           <Anchor style={{color: "#8b8b8b", textDecoration: "none", marginRight: 16}}  href="https://discord.com/invite/gZMKK5q">Discord</Anchor>
-          <Anchor style={{color: "#8b8b8b", textDecoration: "none", marginRight: 16}}  href="https://www.youtube.com/channel/UCklWxKrTti61ZCROE1e5-MQ/playlists">
+          <Anchor style={{color: "#8b8b8b", textDecoration: "none", marginRight: 16}}  href="https://www.youtube.com/channel/UC7iJhl4CsLxzKUWfAw69Qkg">
             Youtube
           </Anchor>
         </nav>
