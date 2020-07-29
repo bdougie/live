@@ -8,7 +8,7 @@ jobs:
     - name: Audit live URL
       uses: jakejarvis/lighthouse-action@master
       with:
-        url: 'https://jarv.is/'
+        url: 'https://bdougie.live/'
     - name: Upload results as an artifact
       uses: actions/upload-artifact@main
       with:
