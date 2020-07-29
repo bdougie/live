@@ -10,7 +10,7 @@ jobs:
       with:
         url: 'https://jarv.is/'
     - name: Upload results as an artifact
-      uses: actions/upload-artifact@master
+      uses: actions/upload-artifact@main
       with:
         name: report
         path: './report'
