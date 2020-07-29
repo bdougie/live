@@ -1,5 +1,5 @@
 name: Audit live site
-on: pull_request
+on: [pull_request, workflow_dispatch]
 
 jobs:
   audit:
