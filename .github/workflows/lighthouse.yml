@@ -1,0 +1,16 @@
+name: Audit live site
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Audit live URL
+      uses: jakejarvis/lighthouse-action@master
+      with:
+        url: 'https://bdougie.live/'
+    - name: Upload results as an artifact
+      uses: actions/upload-artifact@main
+      with:
+        name: report
+        path: './report'
