@@ -172,7 +172,7 @@ function PostsRoot({preloadedQuery}: {preloadedQuery: any}) {
           <Anchor style={{color: "#8b8b8b", textDecoration: "none", marginRight: 16}}  href="https://twitch.tv/bdougieYO">Twitch</Anchor>
           <Anchor style={{color: "#8b8b8b", textDecoration: "none", marginRight: 16}}  href="https://twitter.com/bdougieyo">Twitter</Anchor>
           <Anchor style={{color: "#8b8b8b", textDecoration: "none", marginRight: 16}}  href="https://discord.com/invite/gZMKK5q">Discord</Anchor>
-          <Anchor style={{color: "#8b8b8b", textDecoration: "none", marginRight: 16}}  href="https://www.youtube.com/channel/UC7iJhl4CsLxzKUWfAw69Qkg">
+          <Anchor style={{color: "#8b8b8b", textDecoration: "none", marginRight: 16}}  href="https://www.youtube.com/ilikerobot?sub_confirmation=1">
             Youtube
           </Anchor>
         </nav>
