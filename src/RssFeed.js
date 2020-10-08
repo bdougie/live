@@ -4,28 +4,25 @@ import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {Feed} from 'feed';
 import graphql from 'babel-plugin-relay/macro';
-import {createEnvironment, recordSource} from './Environment';
-import {fetchQuery} from 'react-relay';
+import {createEnvironment} from './Environment';
+import {fetchQuery} from 'react-relay/hooks';
 import {computePostDate, postPath} from './Post';
 import {RssMarkdownRenderer} from './MarkdownRenderer';
 import {ServerStyleSheet} from 'styled-components';
 import inlineCss from 'inline-css/lib/inline-css';
 import {Grommet} from 'grommet/components/Grommet';
-import {Box} from 'grommet/components/Box';
-import {theme} from './App';
 import appCss from './App.css';
-import githubStyle from 'react-syntax-highlighter/dist/cjs/styles/hljs/github';
-import ReactSyntaxHighlighter from 'react-syntax-highlighter/dist/cjs/default-highlight';
 import config from './config';
 import type {RssFeed_QueryResponse} from './__generated__/RssFeed_Query.graphql';
+import theme from './lib/theme';
 
 const feedQuery = graphql`
   query RssFeed_Query($repoOwner: String!, $repoName: String!)
-    @persistedQueryConfiguration(
-      accessToken: {environmentVariable: "OG_GITHUB_TOKEN"}
-      fixedVariables: {environmentVariable: "REPOSITORY_FIXED_VARIABLES"}
-      cacheSeconds: 300
-    ) {
+  @persistedQueryConfiguration(
+    accessToken: {environmentVariable: "OG_GITHUB_TOKEN"}
+    fixedVariables: {environmentVariable: "REPOSITORY_FIXED_VARIABLES"}
+    cacheSeconds: 300
+  ) {
     gitHub {
       repository(name: $repoName, owner: $repoOwner) {
         issues(
@@ -42,10 +39,6 @@ const feedQuery = graphql`
   }
 `;
 
-function SyntaxHighlighter(props) {
-  return <ReactSyntaxHighlighter style={githubStyle} {...props} />;
-}
-
 function renderPostHtml(post) {
   const sheet = new ServerStyleSheet();
   const markup = renderToStaticMarkup(
@@ -55,11 +48,7 @@ function renderPostHtml(post) {
           style={{
             maxWidth: 704,
           }}>
-          <RssMarkdownRenderer
-            source={post.body}
-            SyntaxHighlighter={SyntaxHighlighter}
-            escapeHtml={true}
-          />
+          <RssMarkdownRenderer trustedInput={true} source={post.body} />
         </div>
       </Grommet>,
     ),
@@ -86,14 +75,19 @@ export async function buildFeed({
   basePath?: ?string,
   siteHostname?: ?string,
 }) {
-  const environment = createEnvironment(recordSource, null, null);
-  const data: RssFeed_QueryResponse = await fetchQuery(
+  const markdowns = [];
+  const environment = createEnvironment({
+    registerMarkdown: function (m) {
+      markdowns.push(m);
+    },
+  });
+  const data: ?RssFeed_QueryResponse = await fetchQuery(
     environment,
     feedQuery,
     {},
-  );
+  ).toPromise();
 
-  const posts = data.gitHub?.repository?.issues.nodes || [];
+  const posts = data?.gitHub?.repository?.issues.nodes || [];
   const latestPost = posts[0];
 
   const baseUrl = removeTrailingSlash(
@@ -120,12 +114,12 @@ export async function buildFeed({
   for (const post of posts) {
     if (post) {
       const content = renderPostHtml(post);
-      const body = feed.addItem({
+      feed.addItem({
         title: post.title,
         id: post.id,
         link: `${baseUrl}${postPath({post})}`,
         content,
-        author: (post.assignees.nodes || []).map(node =>
+        author: (post.assignees.nodes || []).map((node) =>
           node
             ? {
                 name: node.name,

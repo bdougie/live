@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+}
+
 .add-reaction-emoji {
   fill: rgb(88, 96, 105);
   stroke: rgb(88, 96, 105);
@@ -83,6 +87,7 @@ pre {
 
 pre code {
   background: none;
+  padding: 0;
 }
 
 code {

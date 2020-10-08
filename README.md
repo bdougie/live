@@ -25,24 +25,41 @@ Schedule for streams can be found at [twitch.tv/bdougieYO](https://www.twitch.tv
 This repo powers the OneGraph Product Updates blog at [onegraph.com/changelog](https://www.onegraph.com/changelog).
 
 All of the posts on the changelog are stored as [issues on the OneGraph changelog repo](https://github.com/OneGraph/onegraph-changelog/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3Apublish+).
+# Build a blog powered by GitHub issues
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2FOneGraph%2Foneblog%2Ftree%2Fnext&env=NEXT_PUBLIC_ONEGRAPH_APP_ID,NEXT_PUBLIC_TITLE,OG_GITHUB_TOKEN,OG_DASHBOARD_ACCESS_TOKEN,VERCEL_URL,VERCEL_GITHUB_ORG,VERCEL_GITHUB_REPO&envDescription=Variables%20needed%20to%20build%20your%20OneBlog&envLink=https%3A%2F%2Fgithub.com%2FOneGraph%2Foneblog%2Ftree%2Fnext%23environment-variables&project-name=oneblog&repo-name=oneblog)
+
+This repo allows you to generate a blog from GitHub issues on a repo. It powers the [OneGraph Product Updates blog](https://www.onegraph.com/changelog), [Stepan Parunashvili's blog](https://stopa.io/), [bdougie.live](https://www.bdougie.live/), and more.
+
+All of the posts are stored as issues on the repo (e.g. [OneGraph/onegraph-changelog](https://github.com/OneGraph/onegraph-changelog/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3Apublish+)).
 
 When you visit the page at [onegraph.com/changelog](https://www.onegraph.com/changelog), a GraphQL query fetches the issues from GitHub via OneGraph's persisted queries and renders them as blog posts.
 
 The persisted queries are stored with authentication credentials for GitHub that allows them to make authenticated requests. Persisting the queries locks them down so that they can't be made to send arbitrary requests to GitHub.
 
-If you'd like to learn more about persisted queries, email [persist@onegraph.com](mailto:persist@onegraph.com) or hop in our [Spectrum chat](https://onegraph.com/chat).
+You can learn more about [persisted queries in the docs](https://www.onegraph.com/docs/persisted_queries.html).
 
 ## Setup
 
 Use an existing OneGraph app or sign up sign up at [OneGraph](https://www.onegraph.com) to create a new app.
 
-Copy `/.env.example` to `/.env` and update `RAZZLE_ONEGRAPH_APP_ID` with your app's id. This would also be a good time to replace `RAZZLE_GITHUB_REPO_OWNER` and `RAZZLE_GITHUB_REPO_NAME` in the `/.env` file with the repo name and owner for the repo you'd like to back your blog. You should also set `RAZZLE_TITLE` and `RAZZLE_DESCRIPTION`.
+Copy `/.env.example` to `/.env` and set the following environment variables.
 
-To create the token that's stored with the persisted query, you'll need to get a OneGraph token with GitHub credentials. Go the "Server-side Auth" tab in the OneGraph dashboard for your app, click the "Create Token" button, and add GitHub to the services. Set the token as `OG_GITHUB_TOKEN` in `.env`
+### Environment variables
 
-You'll also need to get an API token for OneGraph itself to store persisted queries. Go to the "Persisted queries" tab on the OneGraph dashboard, scroll down, and click "Create token". This will create a scoped token for your app that can create persisted queries on your behalf. Set the token as `OG_DASHBOARD_ACCESS_TOKEN` in `.env`.
+| Environment Variable            | Description                                                                                                                                                                                                                                                                                                                                                                                       |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `OG_GITHUB_TOKEN`               | A server-side access token created on OneGraph, used as the default auth for the persisted queries that will fetch the issues. To create a new one, go the "Server-side Auth" tab in the [OneGraph dashboard](https://www.onegraph.com/dashboard) for your app, click the "Create Token" button, and add GitHub to the services. Keep this token safe, because it has access to your GitHub data. |
+| `OG_DASHBOARD_ACCESS_TOKEN`     | An API token that allows you to create persisted queries on OneGraph. Go to the "Persisted queries" tab on the OneGraph dashboard, scroll down, and click "Create token". This will create a scoped token for your app that can create persisted queries on your behalf.                                                                                                                          |
+| `NEXT_PUBLIC_ONEGRAPH_APP_ID`   | The id of your OneGraph app. You can get this from the [OneGraph dashboard](https://www.onegraph.com/dashboard)                                                                                                                                                                                                                                                                                   |
+| `NEXT_PUBLIC_TITLE`             | The title of your site                                                                                                                                                                                                                                                                                                                                                                            |
+| `NEXT_PUBLIC_DESCRIPTION`       | A short description of your site.                                                                                                                                                                                                                                                                                                                                                                 |
+| `NEXT_PUBLIC_GITHUB_REPO_OWNER` | The owner of the repo that we should pull issues from (e.g. linus in linus/oneblog). If you're using the Vercel deploy button, you don't need to provide this.                                                                                                                                                                                                                                    |
+| `NEXT_PUBLIC_GITHUB_REPO_NAME`  | The name of the repo that we should pull issues from (e.g. oneblog in linus/oneblog). If you're using the Vercel deploy button, you don't need to provide this.                                                                                                                                                                                                                                   |
 
-Remove the generated files (they're tied to the OneGraph app they were generated with)
+### Setup relay
+
+Remove the generated files (they're tied to the OneGraph app they were generated with):
 
 ```
 yarn relay:clean
@@ -85,101 +102,34 @@ The project comes with setups for deploying to Google's Firebase, Zeit's Now, Ne
 
 For each of these, you'll have to add the site that you're deploying to on the CORS origins on the OneGraph dashboard.
 
+### Deploy with Vercel
+
+Use the deploy button to set up a new repo:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2FOneGraph%2Foneblog%2Ftree%2Fnext&env=NEXT_PUBLIC_ONEGRAPH_APP_ID,NEXT_PUBLIC_TITLE,OG_GITHUB_TOKEN,OG_DASHBOARD_ACCESS_TOKEN,VERCEL_URL,VERCEL_GITHUB_ORG,VERCEL_GITHUB_REPO&envDescription=Variables%20needed%20to%20build%20your%20OneBlog&envLink=https%3A%2F%2Fgithub.com%2FOneGraph%2Foneblog%2Ftree%2Fnext%23environment-variables&project-name=oneblog&repo-name=oneblog)
+
+If you've already set up the repo, just run the vercel command.
+
+```
+# If not installed
+# npm i -g vercel
+
+vercel
+```
+
+If you see an error when you visit the site, make sure the site's origin is listed in the CORS origins for your app on the OneGraph dashboard.
+
 ### Deploying with Firebase
 
-The project can use Firebase Hosting for static files and a Firebase Function to do server-side rendering.
-
-There are sample firebase configs at `/firebase.json.example` and `/.firebaserc.example`. Copy those to `/firebase.json` and `/.firebaserc`. You'll want to edit `/.firebaserc` to use your firebase project.
-
-```
-cp firebase.json.example firebase.json
-cp .firebaserc.example .firebaserc
-```
-
-
-Then add `firebase-tools` as a dev dependency.
-
-```
-yarn add --dev firebase-tools
-```
-
-Now you can deploy to firebase.
-
-```
-yarn build
-yarn deploy:firebase
-```
-
-If you see an error when you visit the site, make sure the site's origin is listed in the CORS origins for your app on the OneGraph dashboard.
-
-To see it in action, visit [https://onechangelog.web.app](https://onechangelog.web.app).
-
-### Deploying with Zeit
-
-The project can be deployed with Now v2. There is a sample config at `/now.json.example`. First, copy it to `/now.json`.
-
-```
-cp now.json.example now.json
-```
-
-Then add `now` as a dev dependency
-
-```
-yarn add --dev now
-```
-
-To deploy
-
-```
-yarn build
-yarn deploy:now
-```
-
-If you see an error when you visit the site, make sure the site's origin is listed in the CORS origins for your app on the OneGraph dashboard.
-
-To see it in action, visit [https://onechangelog.now.sh](https://onechangelog.now.sh).
+Please open an issue if you'd like help deploying with Firebase.
 
 ### Deploying with Netlify
 
-The project can be deployed with Netlify and Netlify functions. The config lives in `/netlify.toml` and the functions live in `/netlify-functions`.
-
-To deploy
-
-```
-yarn deploy:netlify
-```
-
-If everything looks good at the preview site, deploy to production
-
-```
-yarn deploy:netlify --prod
-```
-
-If you see an error when you visit the site, make sure the site's origin is listed in the CORS origins for your app on the OneGraph dashboard.
-
-To see it in action, visit [https://onechangelog.netlify.com](https://onechangelog.netlify.com).
+Please open an issue if you'd like help deploying with Netlify.
 
 ### Deploying with Fly.io
 
-The project can be deployed with [Fly.io](https://fly.io). Create a new app at [Fly.io](https://fly.io), then update the `/fly.toml` file to use your app.
-
-You'll need to have the flyctl installed on your machine. Install the cli with
-
-```
-curl https://get.fly.io/flyctl.sh | sh
-```
-
-Then run
-
-```
-yarn deploy:fly
-```
-
-That will build a Docker image and upload it to Fly.io. You do not have to have Docker running on your machine. If it is not running, Fly.io will build the Docker file for you with their hosted builders.
-
-If you see an error when you visit the site, make sure the site's origin is listed in the CORS origins for your app on the OneGraph dashboard.
-
-To see it in action, visit [https://onechangelog.fly.dev](https://onechangelog.fly.dev).
+Please open an issue if you'd like help deploying with Fly.io
 
 ## Project setup
 
@@ -203,12 +153,10 @@ The `@persistedQueryConfiguration` directive is stripped from the query and it i
 
 ### Server
 
-The server uses [Razzle](https://github.com/jaredpalmer/razzle) to allow us to render the content on the server. This helps with SEO and allows people to view the blog with Javascript turned off.
-
-Most of the work for the server-side rendering happens in `/src/server.js`.
+The server uses [Next.js](https://nextjs.org) to allow us to render the content on the server. This helps with SEO and allows people to view the blog with Javascript turned off.
 
 When a request comes in to the server, the server creates a mock Relay environment and prefetches the query for the route using `fetchQuery` from `relay-runtime`. This populates the record source that Relay uses to render.
 
 React renders the app to a string, which is sent to the client.
 
-On the client, React rehydates the app. To prevent Relay from showing a loading state, we inject the serialized record source in a global `window.__RELAY_BOOTSTRAP_DATA__` variable. That data is stored in the environment before Relay makes its first query. The `dataFrom` prop (which will move to `fetchConfig` in the next Relay release) on the QueryRenderer is set to "STORE_THEN_NETWORK" so that it uses the data from the store instead of showing a loading state.
+On the client, React rehydates the app. To prevent Relay from showing a loading state, we inject the serialized record source with `getStaticProps`. That data is stored in the environment before Relay makes its first query. The `fetchPolicy` opt is set to "store-and-network" so that it uses the data from the store instead of showing a loading state.

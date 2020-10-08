@@ -1,4 +1,5 @@
 [build]
+<<<<<<< HEAD
   command = "yarn install && yarn relay && yarn build && yarn build:netlify-functions"
   publish = "build/public"
   functions = "built-netlify-functions/"
@@ -15,10 +16,29 @@
   RAZZLE_DESCRIPTION="Description of the blog"
   RAZZLE_SITE_HOSTNAME="Hostname for your blog, e.g. https://example.com"
   RAZZLE_DEFAULT_GITHUB_LOGIN="The github login for the owner of the blog"
+=======
+  command = "yarn install && yarn relay && yarn build && yarn next-on-netlify"
+  publish = "out_publish"
+  functions = "out_functions/"
+  environment = { NETLIFY = "true" }
+
+[context]
+  environment = { NETLIFY = "true"}
+
+[template.environment]
+  NEXT_PUBLIC_ONEGRAPH_APP_ID = "Your OneGraph app id"
+  NEXT_PUBLIC_GITHUB_REPO_NAME = "Name of the repo that OneBlog should pull issues from"
+  NEXT_PUBLIC_GITHUB_REPO_OWNER = "Owner of the repo that OneBlog should pull issues from"
+  NEXT_PUBLIC_TITLE = "The title of the blog"
+  NEXT_PUBLIC_DESCRIPTION="Description of the blog"
+  NEXT_PUBLIC_SITE_HOSTNAME="Hostname for your blog, e.g. https://example.com"
+  NEXT_PUBLIC_DEFAULT_GITHUB_LOGIN="The github login for the owner of the blog"
+>>>>>>> 3c0935597f41496e932f33b65b4a19bf9d15747e
   OG_GITHUB_TOKEN = "The server-side token from OneGraph that will be used in persisted queries"
   OG_DASHBOARD_ACCESS_TOKEN = "The OneGraph API token that allows the build to create persisted queries"
 
 [[redirects]]
+<<<<<<< HEAD
   from = "/"
   to = "/.netlify/functions/index/"
   status = 200
@@ -41,4 +61,8 @@
 [[redirects]]
   from = "/image*"
   to = "/.netlify/functions/index/image:splat"
+=======
+  from = "/feed*"
+  to = "/.netlify/functions/next_api_feed_ext"
+>>>>>>> 3c0935597f41496e932f33b65b4a19bf9d15747e
   status = 200

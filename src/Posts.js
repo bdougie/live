@@ -2,49 +2,41 @@
 
 import React from 'react';
 import graphql from 'babel-plugin-relay/macro';
-import {createPaginationContainer, type RelayProp} from 'react-relay';
+import {createPaginationContainer, type RelayPaginationProp} from 'react-relay';
 import Post from './Post';
 import PostCard from './PostCard';
 import type {Posts_repository} from './__generated__/Posts_repository.graphql';
 import LoadingSpinner from './loadingSpinner';
-import {Box} from 'grommet/components';
+import {Box} from 'grommet/components/Box';
+import {useInView} from 'react-intersection-observer';
+import config from './config';
+import 'intersection-observer';
 
 type Props = {|
-  relay: RelayProp,
+  relay: RelayPaginationProp,
   repository: Posts_repository,
 |};
 
 // TODO: pagination. Can do pages or infinite scroll
 const Posts = ({relay, repository}: Props) => {
   const [isLoading, setIsLoading] = React.useState(false);
-  const scheduledRef = React.useRef(false);
-  const handleScroll = React.useCallback(() => {
-    if (!scheduledRef.current) {
-      scheduledRef.current = true;
-      window.requestAnimationFrame(() => {
-        scheduledRef.current = false;
-        if (
-          window.innerHeight + document.documentElement?.scrollTop >=
-          (document.documentElement?.offsetHeight || 0) - 500
-        ) {
-          if (!isLoading && !relay.isLoading() && relay.hasMore()) {
-            setIsLoading(true);
-            relay.loadMore(10, x => {
-              setIsLoading(false);
-            });
-          }
-        }
+  const [inViewRef, inView] = useInView({threshold: 0});
+
+  React.useEffect(() => {
+    if (inView && !isLoading && !relay.isLoading() && relay.hasMore()) {
+      setIsLoading(true);
+      relay.loadMore(10, (x) => {
+        setIsLoading(false);
       });
     }
-  }, [relay, isLoading, setIsLoading]);
-  React.useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [handleScroll]);
+  }, [relay, isLoading, setIsLoading, inView]);
 
-  const issues = repository.issues.edges || [];
+  const issues = [];
+  for (const edge of repository.issues.edges || []) {
+    if (edge && edge.node) {
+      issues.push(edge.node);
+    }
+  }
 
   return (
     <Box
@@ -55,15 +47,19 @@ const Posts = ({relay, repository}: Props) => {
         width: '100%',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
       }}>
-      {issues.map((e, i) =>
-        e && e.node ? (
-          <PostCard key={e.node.id} context="list" post={e.node} />
-        ) : null,
-      )}
+      {issues.map((node, i) => (
+        <div
+          ref={!isLoading && i === issues.length - 1 ? inViewRef : null}
+          key={node.id}>
+          <PostCard context="list" post={node} />
+        </div>
+      ))}
       {isLoading ? (
         <Box
+          align="center"
+          margin="medium"
           style={{
             maxWidth: 704,
           }}>
@@ -79,20 +75,21 @@ export default createPaginationContainer(
   {
     repository: graphql`
       fragment Posts_repository on GitHubRepository
-        @argumentDefinitions(
-          count: {type: "Int", defaultValue: 10}
-          cursor: {type: "String"}
-          orderBy: {
-            type: "GitHubIssueOrder"
-            defaultValue: {direction: DESC, field: CREATED_AT}
-          }
-        ) {
+      @argumentDefinitions(
+        count: {type: "Int", defaultValue: 10}
+        cursor: {type: "String"}
+        orderBy: {
+          type: "GitHubIssueOrder"
+          defaultValue: {direction: DESC, field: CREATED_AT}
+        }
+      ) {
         issues(
           first: $count
           after: $cursor
           orderBy: $orderBy
           labels: ["publish", "Publish"]
         ) @connection(key: "PostsCard_posts_issues") {
+          isClientFetched @__clientField(handle: "isClientFetched")
           edges {
             node {
               id
@@ -125,12 +122,12 @@ export default createPaginationContainer(
         $repoOwner: String!
         $repoName: String!
       )
-        @persistedQueryConfiguration(
-          accessToken: {environmentVariable: "OG_GITHUB_TOKEN"}
-          freeVariables: ["count", "cursor", "orderBy"]
-          fixedVariables: {environmentVariable: "REPOSITORY_FIXED_VARIABLES"}
-          cacheSeconds: 300
-        ) {
+      @persistedQueryConfiguration(
+        accessToken: {environmentVariable: "OG_GITHUB_TOKEN"}
+        freeVariables: ["count", "cursor", "orderBy"]
+        fixedVariables: {environmentVariable: "REPOSITORY_FIXED_VARIABLES"}
+        cacheSeconds: 300
+      ) {
         gitHub {
           repository(name: $repoName, owner: $repoOwner) {
             __typename

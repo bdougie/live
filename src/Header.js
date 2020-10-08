@@ -1,12 +1,15 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import {Box} from 'grommet/components/Box';
-import {Heading} from 'grommet/components/Heading';
+import {Box, Heading} from 'grommet';
 import Avatar from './Avatar';
-import Post, {PostBox} from './Post';
-import Link from './PreloadLink';
+import Link from 'next/link';
 import config from './config';
+import {PostBox} from './Post';
+import {useRouter} from 'next/router';
 
-export default function Header({gitHub, adminLinks}) {
+function Header({gitHub, adminLinks}) {
+  const {pathname} = useRouter();
+
   return (
     <>
       <Box margin="medium" style={{position: 'absolute', top: 0, right: 0}}>
@@ -21,18 +24,19 @@ export default function Header({gitHub, adminLinks}) {
             color: 'rgba(0,0,0,0.1)',
           }}>
           <Heading style={{fontFamily: "SFMono-Regular", marginTop: 0, textAlign: "center"}} level={1}>
-            <Link
-              getProps={({isCurrent}) => ({
-                style: isCurrent
-                  ? {
-                      textDecoration: 'none',
-                      color: 'inherit',
-                      cursor: 'auto',
-                    }
-                  : {color: 'inherit'},
-              })}
-              to="/">
-              {config.title || 'OneBlog'}
+            <Link href="/">
+              <a
+                style={
+                  pathname === '/'
+                    ? {
+                        textDecoration: 'none',
+                        color: 'inherit',
+                        cursor: 'auto',
+                      }
+                    : {color: 'inherit'}
+                }>
+                {config.title || 'OneBlog'}
+              </a>
             </Link>
           </Heading>
         </Box>
@@ -40,3 +44,5 @@ export default function Header({gitHub, adminLinks}) {
     </>
   );
 }
+
+export default Header;
