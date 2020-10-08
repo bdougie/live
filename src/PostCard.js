@@ -30,6 +30,8 @@ import {ResponsiveContext} from 'grommet/contexts';
 import imgPicker from './lib/imgPicker';
 import {query as postRootQuery} from './PostRoot';
 import {query as postsRootQuery} from './PostsRoot';
+import CommentsIcon from './CommentsIcon';
+import parseMarkdown from './lib/parseMarkdown';
 
 import type {PostCard_post} from './__generated__/PostCard_post.graphql';
 
@@ -89,14 +91,23 @@ const removeReactionMutation = graphql`
 function reactionUpdater({store, viewerHasReacted, subjectId, content}) {
   const reactionGroup = store
     .get(subjectId)
-    .getLinkedRecords('reactionGroups')
-    .find((r) => r.getValue('content') === content);
-  reactionGroup.setValue(viewerHasReacted, 'viewerHasReacted');
-  const users = reactionGroup.getLinkedRecord('users', {first: 11});
-  users.setValue(
-    Math.max(0, users.getValue('totalCount') + (viewerHasReacted ? 1 : -1)),
-    'totalCount',
-  );
+    ?.getLinkedRecords('reactionGroups')
+    ?.find((r) => r?.getValue('content') === content);
+
+  if (reactionGroup) {
+    reactionGroup.setValue(viewerHasReacted, 'viewerHasReacted');
+    const users = reactionGroup.getLinkedRecord('users', {first: 11});
+    if (users) {
+      users.setValue(
+        Math.max(
+          0,
+          // $FlowFixMe
+          (users?.getValue('totalCount') ?? 0) + (viewerHasReacted ? 1 : -1),
+        ),
+        'totalCount',
+      );
+    }
+  }
 }
 
 async function addReaction({environment, content, subjectId}) {
@@ -469,7 +480,7 @@ export function postPath({
 
 const markdownParser = unified().use(parse);
 
-function visitBackmatter(node, fn) {
+function visitBackmatter(node: any, fn) {
   if (node.type === 'code' && node.lang === 'backmatter') {
     fn(node);
   }
@@ -482,7 +493,7 @@ function visitBackmatter(node, fn) {
 
 function postBackmatter(post) {
   const backmatter = {};
-  const ast = markdownParser.parse(post.body);
+  const ast = parseMarkdown(post.body);
   visitBackmatter(ast, (node) => {
     try {
       Object.assign(backmatter, JSON.parse(node.value));
@@ -509,8 +520,8 @@ function truncateString(str) {
   return str.length > num ? str.slice(0, num) + '...' : str;
 }
 
-export const PostCard = React.forwardRef(
-  ({relay, post, context}: Props, ref) => {
+export const PostCard = React.forwardRef<Props, typeof Box>(
+  ({relay, post, context}, ref) => {
     const environment = useRelayEnvironment();
     const {error: notifyError} = React.useContext(NotificationContext);
     const [showReactionPopover, setShowReactionPopover] = React.useState(false);
@@ -546,7 +557,7 @@ export const PostCard = React.forwardRef(
       (g) => g.users.totalCount > 0,
     );
 
-    const labels = post.labels.edges;
+    const labels = post.labels?.edges || [];
 
     if (typeof window === 'undefined') {
       return null;
@@ -587,7 +598,7 @@ export const PostCard = React.forwardRef(
             </Heading>
             <Text margin={{vertical: 'small'}} size="small">
               <MarkdownRenderer
-                escapeHtml={true}
+                trustedInput={true}
                 source={truncateString(post.body)}
               />
             </Text>
@@ -628,6 +639,7 @@ export default createFragmentContainer(PostCard, {
           nodes {
             login
             name
+            isViewer
           }
         }
       }
