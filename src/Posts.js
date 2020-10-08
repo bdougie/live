@@ -50,11 +50,12 @@ const Posts = ({relay, repository}: Props) => {
         justifyContent: 'space-between',
       }}>
       {issues.map((node, i) => (
-        <div
+        <PostCard
+          context="list"
+          post={node}
           ref={!isLoading && i === issues.length - 1 ? inViewRef : null}
-          key={node.id}>
-          <PostCard context="list" post={node} />
-        </div>
+          key={node.id}
+        />
       ))}
       {isLoading ? (
         <Box

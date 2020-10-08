@@ -19,6 +19,7 @@
     "onegraph-auth": "^3.0.0",
     "pixel-stream": "^1.0.3",
     "react": "0.0.0-experimental-94c0244ba",
+    "react-async-hook": "^3.6.2",
     "react-dom": "0.0.0-experimental-94c0244ba",
     "react-embed": "^3.3.2",
     "react-intersection-observer": "^8.28.5",
@@ -50,7 +51,11 @@
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -78,7 +83,8 @@
     "relay-compiler": "^8.0.0",
     "relay-test-utils": "^8.0.0",
     "require-times": "^1.1.0",
-    "source-map-explorer": "^2.0.1"
+    "source-map-explorer": "^2.0.1",
+    "url-loader": "^4.1.0"
   },
   "babelMacros": {
     "relay": {}
