@@ -1,11 +1,19 @@
 // @flow
 
-import {Environment, Network, RecordSource, Store} from 'relay-runtime';
-import Cookies from 'universal-cookie';
+import React from 'react';
+import {
+  Environment,
+  Network,
+  RecordSource,
+  Store,
+  DefaultHandlerProvider,
+} from 'relay-runtime';
 import config from './config';
-import PreloadCache from './preloadQueryCache';
 
 import OneGraphAuth from 'onegraph-auth';
+
+import type {RecordMap, Handler} from 'relay-runtime/store/RelayStoreTypes';
+import type {NotificationContextType} from './Notifications';
 
 class AuthDummy {
   isLoggedIn(x: any) {
@@ -25,40 +33,14 @@ class AuthDummy {
   }
 }
 
-class CookieStorage {
-  _cookies: Cookies = new Cookies();
-  _getOptions = () => {
-    return {
-      path: '/',
-      secure: process.env.NODE_ENV === 'development' ? false : true,
-      sameSite: 'strict',
-      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // 1 week
-    };
-  };
-  getItem = (key: string): ?string => {
-    return this._cookies.get(key, {doNotParse: true});
-  };
-  setItem = (key: string, value: string): void => {
-    this._cookies.set(key, value, this._getOptions());
-  };
-  removeItem = (key: string): void => {
-    this._cookies.remove(key, this._getOptions());
-  };
-}
+export const onegraphAuth =
+  typeof window !== 'undefined'
+    ? new OneGraphAuth({
+        appId: config.appId,
+      })
+    : new AuthDummy();
 
-export const onegraphAuth = global.window
-  ? new OneGraphAuth({
-      appId: config.appId,
-      communicationMode: 'post_message',
-      storage: new CookieStorage(),
-    })
-  : new AuthDummy();
-
-function getQueryId(operation) {
-  return operation.id || operation.text;
-}
-
-async function sendRequest({onegraphAuth, headers, requestBody}) {
+async function sendRequest({onegraphAuth, requestBody}) {
   const response = await fetch(
     'https://serve.onegraph.com/graphql?app_id=' + config.appId,
     {
@@ -67,8 +49,6 @@ async function sendRequest({onegraphAuth, headers, requestBody}) {
         'Content-Type': 'application/json',
         Accept: 'application/json',
         ...onegraphAuth.authHeaders(),
-        // $FlowFixMe
-        ...(headers ? headers : {}),
       },
       body: requestBody,
     },
@@ -83,7 +63,8 @@ async function checkifCorsRequired(): Promise<boolean> {
         config.appId,
     );
     const json = await response.json();
-    return !json.allowed;
+    // Default to false on any error
+    return json.allowed === false;
   } catch (e) {
     console.error('Error checking if CORS required');
     return false;
@@ -101,11 +82,12 @@ function maybeNullOutQuery(json) {
   return json;
 }
 
-function makeFetchQuery(
-  headers?: ?{[key: string]: string},
-  preloadCache: ?PreloadCache,
-  getEnvironment,
-) {
+type Opts = {
+  notificationContext?: ?NotificationContextType,
+  registerMarkdown?: (markdown: string) => void,
+};
+
+function createFetchQuery(opts: ?Opts) {
   return async function fetchQuery(operation, rawVariables, cacheConfig) {
     const variables = {};
     // Bit of a hack to prevent Relay from sending null values for variables
@@ -115,10 +97,6 @@ function makeFetchQuery(
         variables[k] = rawVariables[k];
       }
     }
-    const queryId = getQueryId(operation);
-    const forceFetch = cacheConfig && cacheConfig.force;
-    const isMutation = operation.operationKind === 'mutation';
-    const isQuery = operation.operationKind === 'query';
 
     const requestBody = JSON.stringify({
       doc_id: operation.id,
@@ -126,24 +104,16 @@ function makeFetchQuery(
       variables,
     });
 
-    const appId = config.appId;
-
     try {
       const json = await sendRequest({
         onegraphAuth,
-        headers,
         requestBody,
       });
 
-      if (isMutation && preloadCache) {
-        getEnvironment();
-        preloadCache.clear(getEnvironment());
-      }
+      // eslint-disable-next-line no-unused-expressions
+      opts?.notificationContext?.clearCorsViolation();
 
-      if (
-        json.errors &&
-        (headers || Object.keys(onegraphAuth.authHeaders()).length)
-      ) {
+      if (json.errors && Object.keys(onegraphAuth.authHeaders()).length) {
         // Clear auth on any error and try again
         onegraphAuth.destroy();
         const newJson = await sendRequest({
@@ -161,6 +131,10 @@ function makeFetchQuery(
         if (isCorsRequired) {
           const error = new Error('Missing CORS origin.');
           (error: any).type = 'missing-cors';
+
+          // eslint-disable-next-line no-unused-expressions
+          opts?.notificationContext?.setCorsViolation();
+
           throw error;
         }
       }
@@ -169,25 +143,83 @@ function makeFetchQuery(
   };
 }
 
-export function createEnvironment(
-  recordSource: RecordSource,
-  headers?: ?{[key: string]: string},
-  preloadCache: ?PreloadCache,
-) {
+const isClientFetchedHandler = {
+  update(store, payload) {
+    const record = store.get(payload.dataID);
+    if (!record) {
+      return;
+    }
+    record.setValue(typeof window !== 'undefined', payload.handleKey);
+  },
+};
+
+function getRegisterMarkdownHandler(opts?: ?Opts) {
+  return {
+    update(store, payload) {
+      const record = store.get(payload.dataID);
+      if (!record) {
+        return;
+      }
+      const value = record.getValue(payload.fieldKey, payload.args);
+      if (value && typeof value === 'string' && opts?.registerMarkdown) {
+        opts.registerMarkdown(value);
+      }
+      record.setValue(value, payload.handleKey);
+    },
+  };
+}
+
+function createHandlerProvider(opts?: ?Opts) {
+  const registerMarkdownHandler = getRegisterMarkdownHandler(opts);
+  return function handlerProvider(handle: string): Handler {
+    switch (handle) {
+      case 'isClientFetched':
+        return isClientFetchedHandler;
+      case 'registerMarkdown':
+        return registerMarkdownHandler;
+      default:
+        return DefaultHandlerProvider(handle);
+    }
+  };
+}
+
+export function createEnvironment(opts?: ?Opts) {
+  const recordSource = new RecordSource();
   const store = new Store(recordSource);
   store.holdGC();
-  let environment;
-  const getEnvironment = () => environment;
-  environment = new Environment({
-    network: Network.create(
-      makeFetchQuery(headers, preloadCache, getEnvironment),
-    ),
+  return new Environment({
+    handlerProvider: createHandlerProvider(opts),
+    network: Network.create(createFetchQuery(opts)),
     store,
   });
+}
+
+let globalEnvironment;
+
+export function initEnvironment(
+  initialRecords: ?RecordMap,
+  opts?: ?Opts,
+) {
+  const environment = globalEnvironment ?? createEnvironment(opts);
+  if (
+    initialRecords &&
+    environment.getStore().getSource().getRecordIDs().length <= 1
+  ) {
+    environment.getStore().publish(new RecordSource(initialRecords));
+  }
+
+  if (typeof window !== 'undefined') {
+    window._env = environment;
+    globalEnvironment = environment;
+  }
+
   return environment;
 }
 
-export const recordSource =
-  typeof window !== 'undefined' && window.__RELAY_BOOTSTRAP_DATA__
-    ? new RecordSource(window.__RELAY_BOOTSTRAP_DATA__)
-    : new RecordSource();
+export function useEnvironment(
+  initialRecords: ?RecordMap,
+  opts?: ?Opts,
+) {
+  const store = React.useRef(initEnvironment(initialRecords, opts));
+  return store.current;
+}
