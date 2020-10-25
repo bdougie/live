@@ -150,6 +150,7 @@ export const PostRoot = ({issueNumber}: {issueNumber: number}) => {
             content={description}
           />
         </Head>
+        {/*
         <Header
           gitHub={gitHub}
           adminLinks={[
@@ -160,9 +161,15 @@ export const PostRoot = ({issueNumber}: {issueNumber: number}) => {
             },
           ]}
         />
-        <Post context="details" post={post} />
-        <Comments post={post} postId={post.id} viewer={gitHub.viewer} />
-        <Attribution />
+       */}
+        <div className="text-center mb-5 text-3xl font-bold text-white mt-15">
+          {post.title}
+        </div>
+        <div className="relative max-w-3xl px-4 mx-auto bg-white rounded-md shadow-xl sm:px-6 lg:px-8 ">
+          <Post context="details" post={post} />
+          <Comments post={post} postId={post.id} viewer={gitHub.viewer} />
+          <Attribution />
+        </div>
       </>
     );
   }

@@ -14,7 +14,7 @@ import formatDate from 'date-fns/format';
 import EmojiIcon from './emojiIcon';
 import AddIcon from './addIcon';
 import Tippy, {useSingleton} from '@tippyjs/react';
-import Link from 'next/link';
+import Link from './components/Link';
 import GitHubLoginButton from './GitHubLoginButton';
 import {NotificationContext} from './Notifications';
 import {Box} from 'grommet/components/Box';
@@ -586,16 +586,14 @@ export const PostCard = React.forwardRef<Props, typeof Box>(({relay, post, conte
             reactionGroups={post.reactionGroups}
           />
         </div>
-        {/* Link breaks rendering
         <div>
           <Link
-            href={`/blog/${slug}`}
             href="/post/[...slug]"
+            as={postPath({post})}
             className="flex items-center text-sm text-purple-500">
             READ MORE <ArrowIcon className="w-5 h-5" />
           </Link>
         </div>
-        */}
       </div>
     </>
   );

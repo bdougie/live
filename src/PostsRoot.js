@@ -34,12 +34,11 @@ export const query = graphql`
   }
 `;
 
-const BlogButton = ({ name, onClick }) => {
+const BlogButton = ({name, onClick}) => {
   return (
     <button
       className="py-2 text-sm text-gray-400 border rounded-md px-7 focus:outline-none"
-      onClick={onClick}
-    >
+      onClick={onClick}>
       {name}
     </button>
   );
@@ -68,15 +67,24 @@ export const PostsRoot = () => {
   } else {
     return (
       <>
+        <section className="text-white">
+          <div className="max-w-3xl mx-auto text-center ">
+            <h1 className="mb-5 text-3xl font-bold mt-15">
+              bdougie on the internet.
+            </h1>
+            <p>This is a garden to view those things.</p>
+          </div>
+        </section>
         <Header gitHub={data.gitHub} adminLinks={[]} />
         {asyncHero.error && <div>Error: {asyncHero.error.message}</div>}
-        {!asyncResultBool ? <TwitchStream /> : <TwitchVOD />}
+        <section className="max-w-4xl mx-auto mt-16 bg-black h-96">
+          {!asyncResultBool ? <TwitchStream /> : <TwitchVOD />}
+        </section>
         <section className="my-16">
           <div className="max-w-screen-xl px-4 py-4 mx-auto sm:px-6 lg:px-8">
-            <h1 className="text-2xl text-center">Recent Blogs</h1>
+            <h1 className="text-2xl text-center">Work Work</h1>
             <p className="text-center">
-              Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,
-              consectetur
+              Below is list of things I am working on.
             </p>
             <div className="flex flex-col justify-center my-5 space-y-2 md:space-y-0 md:space-x-2 md:flex-row">
               <BlogButton name="BLOG" />

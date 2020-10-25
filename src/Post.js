@@ -19,7 +19,6 @@ import Link from 'next/link';
 import GitHubLoginButton from './GitHubLoginButton';
 import {NotificationContext} from './Notifications';
 import {Box} from 'grommet/components/Box';
-import {Heading} from 'grommet/components/Heading';
 import {Text} from 'grommet/components/Text';
 import UserContext from './UserContext';
 import {lowerCase} from 'lower-case';
@@ -573,19 +572,10 @@ export const Post = ({relay, post, context}: Props) => {
   const authors = post.assignees.nodes || [];
   return (
     <PostBox>
-      <Box pad="medium">
-        <Heading level={1} margin="none">
-          {context === 'details' ? (
-            post.title
-          ) : (
-            <Link href="/post/[...slug]" as={postPath({post})} shallow={true}>
-              <a style={{color: 'inherit'}}>{post.title}</a>
-            </Link>
-          )}
-        </Heading>
-
+      <div className="max-w-3xl mx-auto ">
+        <small><a className="text-center" href={post.url} target="_blank">View on GitHub</a></small>
         <br />
-        <small><a href={post.url} target="_blank">View on GitHub</a></small>
+        <br />
 
 
         {authors.length > 0 ? (
@@ -650,7 +640,9 @@ export const Post = ({relay, post, context}: Props) => {
             }}
           />
         </Text>
-      </Box>
+      </div>
+      <br />
+      <br />
       <ReactionBar
         relay={relay}
         subjectId={post.id}
