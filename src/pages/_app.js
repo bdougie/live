@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import '../styles/index.css';
 import '../App.css';
 import '../gifplayer.css';
 import 'tippy.js/themes/light-border.css';
@@ -10,7 +11,6 @@ import {RelayEnvironmentProvider, fetchQuery} from 'react-relay/hooks';
 import UserContext from '../UserContext';
 import {NotificationContainer, NotificationContext} from '../Notifications';
 import Nav from '../components/Nav';
-import '../styles/index.css';
 
 import Head from '../Head';
 import ErrorBoundary from '../ErrorBoundary';
