@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@responsive {
+  .bg-gradient-brand {
+    background-image: linear-gradient(
+      180deg,
+      theme('colors.blue.500') 0,
+      theme('colors.purple.500') 100%
+    );
+  }
+}

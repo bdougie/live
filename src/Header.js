@@ -12,6 +12,17 @@ function Header({gitHub, adminLinks}) {
 
   return (
     <>
+     <section className="text-white">
+        <div className="max-w-3xl mx-auto text-center ">
+          <h1 className="mb-5 text-3xl font-bold mt-15">
+            Please replace this text with a heading.
+          </h1>
+          <p>
+            Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur
+          </p>
+        </div>
+      </section>
+
       <Box margin="medium" style={{position: 'absolute', top: 0, right: 0}}>
         <Avatar gitHub={gitHub} adminLinks={adminLinks} />
       </Box>

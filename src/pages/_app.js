@@ -9,8 +9,9 @@ import {onegraphAuth, useEnvironment} from '../Environment';
 import {RelayEnvironmentProvider, fetchQuery} from 'react-relay/hooks';
 import UserContext from '../UserContext';
 import {NotificationContainer, NotificationContext} from '../Notifications';
-import {Grommet} from 'grommet/components/Grommet';
-import theme from '../lib/theme';
+import Nav from '../components/Nav';
+import '../styles/index.css';
+
 import Head from '../Head';
 import ErrorBoundary from '../ErrorBoundary';
 import {useRouter} from 'next/router';
@@ -190,11 +191,25 @@ export function reportWebVitals({
 
 function AppWrapper({Component, pageProps}: any) {
   return (
-    <Grommet theme={theme}>
-      <NotificationContainer>
-        <App Component={Component} pageProps={pageProps} />
-      </NotificationContainer>
-    </Grommet>
+    <div className="">
+      <div className="w-full -mt-10 transform h-128 bg-gradient-brand -skew-y-2">
+        <div className="w-full pt-10 transform skew-y-2">
+          <Nav />
+
+          <NotificationContainer>
+            <App Component={Component} pageProps={pageProps} />
+          </NotificationContainer>
+          <footer>
+            <div className="flex flex-col justify-between max-w-xl p-4 mx-auto md:flex-row sm:px-6 lg:max-w-screen-xl lg:px-8">
+              <span className="text-xl font-bold">bdougie.live</span>
+              <span className="text-sm text-gray-400">
+                © 2020 All Rights Reserved. bdougie.live
+              </span>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
   );
 }
 

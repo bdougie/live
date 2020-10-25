@@ -65,6 +65,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.8.3",
     "@babel/preset-flow": "^7.0.0",
+    "@tailwindcss/ui": "^0.6.2",
     "babel-eslint": "10.x",
     "babel-plugin-macros": "^2.6.1",
     "babel-plugin-relay": "^8.0.0",
@@ -78,12 +79,15 @@
     "flow-bin": "^0.133.0",
     "flow-typed": "^3.2.1",
     "graphql": "^14.4.2",
+    "postcss-flexbugs-fixes": "^4.2.1",
+    "postcss-preset-env": "^6.7.0",
     "prettier": "^2.1.2",
     "razzle": "^3.0.0",
     "relay-compiler": "^8.0.0",
     "relay-test-utils": "^8.0.0",
     "require-times": "^1.1.0",
     "source-map-explorer": "^2.0.1",
+    "tailwindcss": "^1.9.6",
     "url-loader": "^4.1.0"
   },
   "babelMacros": {
