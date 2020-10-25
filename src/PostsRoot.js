@@ -70,7 +70,7 @@ export const PostsRoot = () => {
         <section className="text-white">
           <div className="max-w-3xl mx-auto text-center ">
             <h1 className="mb-5 text-3xl font-bold mt-15">
-              bdougie is on the internet.
+              bdougie is 💯 on the internet.
             </h1>
             <p>This is a garden to view those things.</p>
           </div>
