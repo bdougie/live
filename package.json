@@ -35,8 +35,8 @@
     "react-dom": "0.0.0-experimental-94c0244ba"
   },
   "scripts": {
-    "dev": "next",
-    "start": "next",
+    "dev": "next dev",
+    "start": "next start",
     "build": "yarn ensure-publish-label && yarn relay && next build",
     "start:prod": "NODE_ENV=production node build/server.js",
     "relay": "relay-compiler --src ./src --schema ./schema.graphql --persistFunction scripts/persistQuery.js",
@@ -89,6 +89,9 @@
     "source-map-explorer": "^2.0.1",
     "tailwindcss": "^1.9.6",
     "url-loader": "^4.1.0"
+  },
+  "peerDependencies": {
+    "postcss": "^8.0.0"
   },
   "babelMacros": {
     "relay": {}
