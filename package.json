@@ -1,6 +1,6 @@
 {
-  "name": "oneblog",
-  "version": "0.1.0",
+  "name": "bdougie-live",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@tippyjs/react": "4.1.0",
