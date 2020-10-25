@@ -14,7 +14,7 @@ import formatDate from 'date-fns/format';
 import EmojiIcon from './emojiIcon';
 import AddIcon from './addIcon';
 import Tippy, {useSingleton} from '@tippyjs/react';
-import Link from 'next/link';
+import Link from './components/Link';
 import GitHubLoginButton from './GitHubLoginButton';
 import {NotificationContext} from './Notifications';
 import {Box} from 'grommet/components/Box';
@@ -32,6 +32,14 @@ import {query as postRootQuery} from './PostRoot';
 import {query as postsRootQuery} from './PostsRoot';
 import CommentsIcon from './CommentsIcon';
 import parseMarkdown from './lib/parseMarkdown';
+
+import {
+  ArrowIcon,
+  LikeIcon,
+  StarIcon,
+  HeartIcon,
+  AddUserIcon,
+} from './components/Icons';
 
 import type {PostCard_post} from './__generated__/PostCard_post.graphql';
 
@@ -564,52 +572,35 @@ export const PostCard = React.forwardRef<Props, typeof Box>(
     }
 
     return (
-      <ResponsiveContext.Consumer>
-        {(responsive) => (
-          <Box
-            ref={ref}
-            width={responsive === 'small' ? '100%' : '48%'}
-            round="small"
-            pad="small"
-            margin={{right: 'small', top: 'small'}}>
+      <>
+        <div
+          className="h-10 bg-gray-400 bg-center bg-cover pb-16/9"
+          style={{backgroundImage: `url(${imgPicker(labels)})`}}></div>
+        <div className="flex flex-col justify-between flex-grow p-3 space-y-6">
+          <div>
+            <h3 className="text-lg font-bold">{post.title}</h3>
+          </div>
+          <div className="flex-grow">
+            <MarkdownRenderer
+              trustedInput={true}
+              source={truncateString(post.body)}
+            />
+          </div>
+          <ReactionBar
+            relay={relay}
+            subjectId={post.id}
+            reactionGroups={post.reactionGroups}
+          />
+          <div>
             <Link
               href="/post/[...slug]"
-              style={{color: 'inherit'}}
-              as={postPath({post})}>
-              <Box margin={{bottom: 'small'}} height="small" width="medium">
-                <Image
-                  fit="cover"
-                  src={imgPicker(labels)}
-                  style={{
-                    borderRadius: 12,
-                    overflow: 'hidden',
-                    boxShadow: '5px 5px 5px rgba(0,0,0,0.3)',
-                  }}
-                />
-              </Box>
+              as={postPath({post})}
+              className="flex items-center text-sm text-purple-500">
+              READ MORE <ArrowIcon className="w-5 h-5" />
             </Link>
-            <Heading gap="small" level={4} margin="none">
-              <Link
-                href="/post/[...slug]"
-                style={{color: 'inherit'}}
-                as={postPath({post})}>
-                <a>{post.title}</a>
-              </Link>
-            </Heading>
-            <Text margin={{vertical: 'small'}} size="small">
-              <MarkdownRenderer
-                trustedInput={true}
-                source={truncateString(post.body)}
-              />
-            </Text>
-            <ReactionBar
-              relay={relay}
-              subjectId={post.id}
-              reactionGroups={post.reactionGroups}
-            />
-          </Box>
-        )}
-      </ResponsiveContext.Consumer>
+          </div>
+        </div>
+      </>
     );
   },
 );

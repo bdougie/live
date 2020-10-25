@@ -1,3 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@responsive {
+  .bg-gradient-brand {
+    background-image: linear-gradient(
+      180deg,
+      theme('colors.blue.500') 0,
+      theme('colors.purple.500') 100%
+    );
+  }
+}
+
 body {
   margin: 0;
 }
@@ -98,7 +112,6 @@ code {
 
 .layout {
   box-sizing: border-box;
-  max-width: 804px;
   margin: auto;
   width: 100%;
   height: 100%;

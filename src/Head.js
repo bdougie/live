@@ -28,6 +28,7 @@ function Head() {
       <meta property="og:locale" content="en_US" />
       <meta key="type" property="og:type" content="website" />
 
+      <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       <link rel="shortcut icon" href="/favicon.ico" />
       <link
         rel="alternate"

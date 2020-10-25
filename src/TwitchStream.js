@@ -7,7 +7,7 @@ export function TwitchStream() {
         <iframe
           src="https://player.twitch.tv/?channel=bdougieYO&parent=www.bdougie.live&parent=localhost&parent=bdougie.live&autoplay=false"
           frameBorder="0"
-          allowFullScreen="true"
+          allowFullScreen={true}
           scrolling="no"
           height="100%"
           width="100%"></iframe>
@@ -29,14 +29,14 @@ export function TwitchVOD() {
   return (
     <div className="twitch">
       <div className="twitch-vod">
-      <iframe
-        src="https://player.twitch.tv/?video=609100617&parent=streamernews.example.com&autoplay=false"
-        height="100%"
-        width="100%"
-        frameBorder="0"
-        scrolling="no"
-        allowFullScreen="true"></iframe>
-    </div>
+        <iframe
+          src="https://player.twitch.tv/?video=609100617&parent=streamernews.example.com&autoplay=false"
+          height="100%"
+          width="100%"
+          frameBorder="0"
+          scrolling="no"
+          allowFullScreen={true}></iframe>
+      </div>
     </div>
   );
 }

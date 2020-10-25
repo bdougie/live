@@ -10,6 +10,7 @@ import {useAsync} from 'react-async-hook';
 import {channelStatus} from './lib/Twitch';
 import {Anchor} from 'grommet';
 import {TwitchStream, TwitchVOD} from './TwitchStream';
+import Feature from './components/Feature.js';
 
 import type {
   PostsRoot_Query,
@@ -32,6 +33,16 @@ export const query = graphql`
     }
   }
 `;
+
+const BlogButton = ({name, onClick}) => {
+  return (
+    <button
+      className="py-2 text-sm text-gray-400 border rounded-md px-7 focus:outline-none"
+      onClick={onClick}>
+      {name}
+    </button>
+  );
+};
 
 export const PostsRoot = () => {
   const data: ?PostsRoot_QueryResponse = useLazyLoadQuery<PostsRoot_Query>(
@@ -56,37 +67,67 @@ export const PostsRoot = () => {
   } else {
     return (
       <>
+        <section className="text-white">
+          <div className="max-w-3xl mx-auto text-center ">
+            <h1 className="mb-5 text-3xl font-bold mt-15">
+              bdougie is 💯 on the internet.
+            </h1>
+            <p>This is a garden to view those things.</p>
+          </div>
+        </section>
         <Header gitHub={data.gitHub} adminLinks={[]} />
-        <nav style={{margin: 16, textAlign: 'center'}}>
-          <Anchor
-            style={{color: '#8b8b8b', textDecoration: 'none', marginRight: 16}}
-            href="https://github.com/bdougie/live">
-            GitHub
-          </Anchor>
-          <Anchor
-            style={{color: '#8b8b8b', textDecoration: 'none', marginRight: 16}}
-            href="https://twitch.tv/bdougieYO">
-            Twitch
-          </Anchor>
-          <Anchor
-            style={{color: '#8b8b8b', textDecoration: 'none', marginRight: 16}}
-            href="https://twitter.com/bdougieyo">
-            Twitter
-          </Anchor>
-          <Anchor
-            style={{color: '#8b8b8b', textDecoration: 'none', marginRight: 16}}
-            href="https://discord.com/invite/gZMKK5q">
-            Discord
-          </Anchor>
-          <Anchor
-            style={{color: '#8b8b8b', textDecoration: 'none', marginRight: 16}}
-            href="https://www.youtube.com/ilikerobot?sub_confirmation=1">
-            Youtube
-          </Anchor>
-        </nav>
         {asyncHero.error && <div>Error: {asyncHero.error.message}</div>}
-        {!asyncResultBool ? <TwitchStream /> : <TwitchVOD />}
-        <Posts repository={respository} />
+        <section className="max-w-4xl mx-auto mt-16 bg-black h-96">
+          {!asyncResultBool ? <TwitchStream /> : <TwitchVOD />}
+        </section>
+        <section className="my-16">
+          <div className="max-w-screen-xl px-4 py-4 mx-auto sm:px-6 lg:px-8">
+            <h1 className="text-2xl text-center">Work Work</h1>
+            <p className="text-center">
+              Below is list of things I am working on.
+            </p>
+            <br />
+            {/* TODO: work on filtering posts by labels
+            <div className="flex flex-col justify-center my-5 space-y-2 md:space-y-0 md:space-x-2 md:flex-row">
+              <BlogButton name="BLOG" />
+              <BlogButton name="VIDEO" />
+              <BlogButton name="PROJECT" />
+              <BlogButton name="PODCAST" />
+            </div>
+            */}
+            <Posts repository={respository} />
+          </div>
+        </section>
+        <section className="text-white bg-purple-500">
+          <div className="py-12">
+            <div className="max-w-xl px-4 mx-auto text-center sm:px-6 lg:max-w-screen-xl lg:px-8">
+              <h1 className="text-4xl">Introducing bdougie.live</h1>
+              <p className="max-w-5xl py-4 mx-auto">
+                Many desktop publishing packages and web page editors now use
+                Lorem Ipsum as their default model text, and a search for lorem
+                ipsum will uncover many web sites still in their infancy.
+                Various versions have evolved over the years, sometimes by
+                accident, sometimes on purpose (injected humour and the like
+              </p>
+            </div>
+            <div className="max-w-xl px-4 py-4 mx-auto sm:px-6 lg:max-w-screen-xl lg:px-8">
+              <div className="lg:grid lg:grid-cols-3 lg:gap-8">
+                <Feature
+                  title="A titile"
+                  description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione."
+                />
+                <Feature
+                  title="A titile"
+                  description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione."
+                />
+                <Feature
+                  title="A titile"
+                  description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione."
+                />
+              </div>
+            </div>
+          </div>
+        </section>
       </>
     );
   }

@@ -39,23 +39,16 @@ const Posts = ({relay, repository}: Props) => {
   }
 
   return (
-    <Box
-      pad={{top: 'medium', horizontal: 'medium'}}
-      margin={{bottom: 'large'}}
-      wrap={true}
-      style={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-      }}>
+    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {issues.map((node, i) => (
-        <PostCard
-          context="list"
-          post={node}
-          ref={!isLoading && i === issues.length - 1 ? inViewRef : null}
-          key={node.id}
-        />
+        <div className="flex flex-col h-full overflow-hidden border border-gray-200 rounded-lg">
+          <PostCard
+            context="list"
+            post={node}
+            ref={!isLoading && i === issues.length - 1 ? inViewRef : null}
+            key={node.id}
+          />
+        </div>
       ))}
       {isLoading ? (
         <Box
@@ -67,7 +60,7 @@ const Posts = ({relay, repository}: Props) => {
           <LoadingSpinner width="48px" height="48px" />
         </Box>
       ) : null}
-    </Box>
+    </div>
   );
 };
 
