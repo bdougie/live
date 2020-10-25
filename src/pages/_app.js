@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import '../styles/index.css';
 import '../App.css';
 import '../gifplayer.css';
 import 'tippy.js/themes/light-border.css';

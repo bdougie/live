@@ -3,6 +3,7 @@
 import React from 'react';
 import NextHead from 'next/head';
 import config from './config';
+import './styles/index.css';
 
 function Head() {
   return (
