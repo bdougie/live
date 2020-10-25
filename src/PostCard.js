@@ -33,7 +33,13 @@ import {query as postsRootQuery} from './PostsRoot';
 import CommentsIcon from './CommentsIcon';
 import parseMarkdown from './lib/parseMarkdown';
 
-import { ArrowIcon, LikeIcon, StarIcon, HeartIcon, AddUserIcon } from './components/Icons';
+import {
+  ArrowIcon,
+  LikeIcon,
+  StarIcon,
+  HeartIcon,
+  AddUserIcon,
+} from './components/Icons';
 
 import type {PostCard_post} from './__generated__/PostCard_post.graphql';
 
@@ -522,80 +528,82 @@ function truncateString(str) {
   return str.length > num ? str.slice(0, num) + '...' : str;
 }
 
-export const PostCard = React.forwardRef<Props, typeof Box>(({relay, post, context}, ref) => {
-  const environment = useRelayEnvironment();
-  const {error: notifyError} = React.useContext(NotificationContext);
-  const [showReactionPopover, setShowReactionPopover] = React.useState(false);
-  const postDate = React.useMemo(() => computePostDate(post), [post]);
-  const popoverInstance = React.useRef();
-  const {loginStatus, login} = React.useContext(UserContext);
-  const isLoggedIn = loginStatus === 'logged-in';
+export const PostCard = React.forwardRef<Props, typeof Box>(
+  ({relay, post, context}, ref) => {
+    const environment = useRelayEnvironment();
+    const {error: notifyError} = React.useContext(NotificationContext);
+    const [showReactionPopover, setShowReactionPopover] = React.useState(false);
+    const postDate = React.useMemo(() => computePostDate(post), [post]);
+    const popoverInstance = React.useRef();
+    const {loginStatus, login} = React.useContext(UserContext);
+    const isLoggedIn = loginStatus === 'logged-in';
 
-  // Primitive preloading.
-  // Ideally, we would be able to replace nextjs' preloading logic with our own
-  // We like getStaticProps for SSR, but it's more efficient to fetch directly
-  // from OneGraph once the client-side code is loaded, esp. when logged in
-  const number = post.number;
-  React.useEffect(() => {
-    if (context === 'list') {
-      loadQuery.loadQuery(
-        environment,
-        postRootQuery,
-        {issueNumber: number},
-        {fetchPolicy: 'store-or-network'},
-      );
-    } else if (context === 'details') {
-      loadQuery.loadQuery(
-        environment,
-        postsRootQuery,
-        {},
-        {fetchPolicy: 'store-or-network'},
-      );
+    // Primitive preloading.
+    // Ideally, we would be able to replace nextjs' preloading logic with our own
+    // We like getStaticProps for SSR, but it's more efficient to fetch directly
+    // from OneGraph once the client-side code is loaded, esp. when logged in
+    const number = post.number;
+    React.useEffect(() => {
+      if (context === 'list') {
+        loadQuery.loadQuery(
+          environment,
+          postRootQuery,
+          {issueNumber: number},
+          {fetchPolicy: 'store-or-network'},
+        );
+      } else if (context === 'details') {
+        loadQuery.loadQuery(
+          environment,
+          postsRootQuery,
+          {},
+          {fetchPolicy: 'store-or-network'},
+        );
+      }
+    }, [environment, context, number]);
+
+    const usedReactions = (post.reactionGroups || []).filter(
+      (g) => g.users.totalCount > 0,
+    );
+
+    const labels = post.labels?.edges || [];
+
+    if (typeof window === 'undefined') {
+      return null;
     }
-  }, [environment, context, number]);
 
-  const usedReactions = (post.reactionGroups || []).filter(
-    (g) => g.users.totalCount > 0,
-  );
-
-  const labels = post.labels?.edges || [];
-
-  if (typeof window === 'undefined') {
-    return null;
-  }
-
-  return (
-    <>
-      <div
-        className="h-10 bg-gray-400 bg-center bg-cover pb-16/9"
-        style={{backgroundImage: `url(${imgPicker(labels)})`}}></div>
-      <div className="flex flex-col justify-between flex-grow p-3 space-y-6">
-        <div>
-          <h3 className="text-lg font-bold">{post.title}</h3>
-        </div>
-        <div className="flex-grow">
-          <MarkdownRenderer
-            trustedInput={true}
-            source={truncateString(post.body)}
-          />
-        </div>
+    return (
+      <>
+        <div
+          className="h-10 bg-gray-400 bg-center bg-cover pb-16/9"
+          style={{backgroundImage: `url(${imgPicker(labels)})`}}></div>
+        <div className="flex flex-col justify-between flex-grow p-3 space-y-6">
+          <div>
+            <h3 className="text-lg font-bold">{post.title}</h3>
+          </div>
+          <div className="flex-grow">
+            <MarkdownRenderer
+              trustedInput={true}
+              source={truncateString(post.body)}
+            />
+          </div>
           <ReactionBar
             relay={relay}
             subjectId={post.id}
             reactionGroups={post.reactionGroups}
           />
-        <div>
-          <Link
-            href="/post/[...slug]"
-            as={postPath({post})}
-            className="flex items-center text-sm text-purple-500">
-            READ MORE <ArrowIcon className="w-5 h-5" />
-          </Link>
+          <div>
+            <Link
+              href="/post/[...slug]"
+              as={postPath({post})}
+              className="flex items-center text-sm text-purple-500">
+              READ MORE <ArrowIcon className="w-5 h-5" />
+            </Link>
+          </div>
         </div>
-      </div>
-    </>
-  );
-});
+      </>
+    );
+  },
+);
 
 export default createFragmentContainer(PostCard, {
   post: graphql`
