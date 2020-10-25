@@ -70,7 +70,7 @@ export const PostsRoot = () => {
         <section className="text-white">
           <div className="max-w-3xl mx-auto text-center ">
             <h1 className="mb-5 text-3xl font-bold mt-15">
-              bdougie on the internet.
+              bdougie is on the internet.
             </h1>
             <p>This is a garden to view those things.</p>
           </div>
@@ -86,12 +86,15 @@ export const PostsRoot = () => {
             <p className="text-center">
               Below is list of things I am working on.
             </p>
+            <br />
+            {/* TODO: work on filtering posts by labels
             <div className="flex flex-col justify-center my-5 space-y-2 md:space-y-0 md:space-x-2 md:flex-row">
               <BlogButton name="BLOG" />
               <BlogButton name="VIDEO" />
               <BlogButton name="PROJECT" />
               <BlogButton name="PODCAST" />
             </div>
+            */}
             <Posts repository={respository} />
           </div>
         </section>

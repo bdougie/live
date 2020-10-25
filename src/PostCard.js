@@ -579,13 +579,11 @@ export const PostCard = React.forwardRef<Props, typeof Box>(({relay, post, conte
             source={truncateString(post.body)}
           />
         </div>
-        <div className="grid grid-cols-4 gap-2">
           <ReactionBar
             relay={relay}
             subjectId={post.id}
             reactionGroups={post.reactionGroups}
           />
-        </div>
         <div>
           <Link
             href="/post/[...slug]"
