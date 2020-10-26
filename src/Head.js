@@ -34,7 +34,7 @@ function Head() {
       <meta property="og:site_name" content={config.title} />
       <meta property="og:image" content="/social.png" key="ogimage" />
       <meta property="og:locale" content="en_US" />
-      <meta key="type" property="og:type" ntent="website" />
+      <meta key="type" property="og:type" content="website" />
 
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       <link rel="shortcut icon" href="/favicon.ico" />
