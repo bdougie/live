@@ -22,9 +22,15 @@ function Head() {
           content={config.description}
         />
       ) : null}
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary" key="twcard" />
+      <meta name="twitter:creator" content="bdougieYO" key="twhandle" />
+
+      {/* Open Graph */}
       <meta charSet="utf-8" />
       <meta key="og:title" property="og:title" content={config.title} />
       <meta property="og:site_name" content={config.title} />
+      <meta property="og:image" content="/social.png" key="ogimage" />
       <meta property="og:locale" content="en_US" />
       <meta key="type" property="og:type" content="website" />
 
