@@ -25,14 +25,14 @@ function Head() {
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:creator" content="bdougieYO" key="twhandle" />
-      <meta name="twitter:image" content="/social.png" />
+      <meta name="twitter:image" content="https://user-images.githubusercontent.com/5713670/97175294-87e9c880-1750-11eb-9f57-e018d1affbef.png" />
       <meta name="twitter:site" content="@bdougieYO" />
 
       {/* Open Graph */}
       <meta charSet="utf-8" />
       <meta key="og:title" property="og:title" content={config.title} />
       <meta property="og:site_name" content={config.title} />
-      <meta property="og:image" content="/social.png" key="ogimage" />
+      <meta property="og:image" content="https://user-images.githubusercontent.com/5713670/97175294-87e9c880-1750-11eb-9f57-e018d1affbef.png" key="ogimage" />
       <meta property="og:locale" content="en_US" />
       <meta key="type" property="og:type" content="website" />
 
