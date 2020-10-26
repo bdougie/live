@@ -23,9 +23,10 @@ function Head() {
         />
       ) : null}
       {/* Twitter */}
-      <meta name="twitter:card" content="summary" key="twcard" />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:creator" content="bdougieYO" key="twhandle" />
       <meta name="twitter:image" content="/social.png" />
+      <meta name="twitter:site" content="@bdougieYO" />
 
       {/* Open Graph */}
       <meta charSet="utf-8" />
