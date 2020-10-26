@@ -24,10 +24,10 @@ function Head() {
       ) : null}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@bdougieYO" />
-      <meta name="twitter:title" content="bdougie 💯 on the internet">
-      <meta name="twitter:description" content="A digital garden for all things dougie.">
+      <meta name="twitter:title" content="bdougie 💯 on the internet"   />
+      <meta name="twitter:description" content="A digital garden for all things dougie." />
       <meta name="twitter:image" content="/social.png" />
-      <meta name="twitter:image:alt" content="bdougie on the internet">
+      <meta name="twitter:image:alt" content="bdougie on the internet" />
 
       <meta charSet="utf-8" />
       <meta key="og:title" property="og:title" content={config.title} />
