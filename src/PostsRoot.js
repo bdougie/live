@@ -101,13 +101,9 @@ export const PostsRoot = () => {
         <section className="text-white bg-purple-500">
           <div className="py-12">
             <div className="max-w-xl px-4 mx-auto text-center sm:px-6 lg:max-w-screen-xl lg:px-8">
-              <h1 className="text-4xl">Introducing bdougie.live</h1>
+              <h1 className="text-4xl">Who is this bdougie?</h1>
               <p className="max-w-5xl py-4 mx-auto">
-                Many desktop publishing packages and web page editors now use
-                Lorem Ipsum as their default model text, and a search for lorem
-                ipsum will uncover many web sites still in their infancy.
-                Various versions have evolved over the years, sometimes by
-                accident, sometimes on purpose (injected humour and the like
+                Brian Douglas is a Developer Advocate at GitHub where he works on increasing use of the GitHub’s platform specific features (Ask him about GitHub Actions!) through technical content distributed on the internet. In addition to that, Brian has a passion open source and loves mentoring new contributors.
               </p>
             </div>
             <div className="max-w-xl px-4 py-4 mx-auto sm:px-6 lg:max-w-screen-xl lg:px-8">
