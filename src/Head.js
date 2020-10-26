@@ -25,6 +25,7 @@ function Head() {
       {/* Twitter */}
       <meta name="twitter:card" content="summary" key="twcard" />
       <meta name="twitter:creator" content="bdougieYO" key="twhandle" />
+      <meta name="twitter:image" content="/social.png" />
 
       {/* Open Graph */}
       <meta charSet="utf-8" />
