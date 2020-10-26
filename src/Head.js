@@ -26,13 +26,13 @@ function Head() {
       <meta name="twitter:site" content="@bdougieYO" />
       <meta name="twitter:title" content="bdougie 💯 on the internet">
       <meta name="twitter:description" content="A digital garden for all things dougie.">
-      <meta name="twitter:image" content="https://user-images.githubusercontent.com/5713670/97175294-87e9c880-1750-11eb-9f57-e018d1affbef.png" />
+      <meta name="twitter:image" content="/social.png" />
       <meta name="twitter:image:alt" content="bdougie on the internet">
 
       <meta charSet="utf-8" />
       <meta key="og:title" property="og:title" content={config.title} />
       <meta property="og:site_name" content={config.title} />
-      <meta property="og:image" content="https://user-images.githubusercontent.com/5713670/97175294-87e9c880-1750-11eb-9f57-e018d1affbef.png" key="ogimage" />
+      <meta property="og:image" content="/social.png" key="ogimage" />
       <meta property="og:locale" content="en_US" />
       <meta key="type" property="og:type" ntent="website" />
 
