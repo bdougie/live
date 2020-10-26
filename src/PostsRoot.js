@@ -70,9 +70,9 @@ export const PostsRoot = () => {
         <section className="text-white">
           <div className="max-w-3xl mx-auto text-center ">
             <h1 className="mb-5 text-3xl font-bold mt-15">
-              bdougie is 💯 on the internet.
+              💯 on the internet.
             </h1>
-            <p>This is a garden to view those things.</p>
+            <p>A digital garden of bdougie things.</p>
           </div>
         </section>
         <Header gitHub={data.gitHub} adminLinks={[]} />
