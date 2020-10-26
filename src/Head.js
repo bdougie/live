@@ -22,15 +22,13 @@ function Head() {
           content={config.description}
         />
       ) : null}
-      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@bdougieYO" />
       <meta name="twitter:title" content="bdougie 💯 on the internet">
       <meta name="twitter:description" content="A digital garden for all things dougie.">
-      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:image" content="https://user-images.githubusercontent.com/5713670/97175294-87e9c880-1750-11eb-9f57-e018d1affbef.png" />
-      <meta name="twitter:site" content="@bdougieYO" />
       <meta name="twitter:image:alt" content="bdougie on the internet">
 
-      {/* Open Graph */}
       <meta charSet="utf-8" />
       <meta key="og:title" property="og:title" content={config.title} />
       <meta property="og:site_name" content={config.title} />
