@@ -23,9 +23,9 @@ function Head() {
         />
       ) : null}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@bdougieYO" />
+      <meta name="twitter:site" content="@bdougieyo" />
       <meta name="twitter:card" content="summary" key="twcard" />
-      <meta name="twitter:creator" content={twitterHandle} key="twhandle" />
+      <meta name="twitter:creator" content="bdougieyo" key="twhandle" />
 
       <meta charSet="utf-8" />
       <meta key="og:title" property="og:title" content={config.title} />
