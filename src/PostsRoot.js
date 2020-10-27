@@ -72,7 +72,6 @@ export const PostsRoot = () => {
             <h1 className="mb-5 text-3xl font-bold mt-15">
               Keeping it 💯 on the internet.
             </h1>
-            <p>These are a few of my favorite things.</p>
           </div>
         </section>
         <Header gitHub={data.gitHub} adminLinks={[]} />
