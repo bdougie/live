@@ -109,16 +109,19 @@ export const PostsRoot = () => {
             <div className="max-w-xl px-4 py-4 mx-auto sm:px-6 lg:max-w-screen-xl lg:px-8">
               <div className="lg:grid lg:grid-cols-3 lg:gap-8">
                 <Feature
-                  title="A titile"
-                  description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione."
+                  link="https://twitch.tv/bdougieYO"
+                  title="Twitch"
+                  description="I stream code Tuesday and Fridays. Watch me build GitHub Actions and contribute to Open Source projects."
                 />
                 <Feature
-                  title="A titile"
-                  description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione."
+                  link="https://www.youtube.com/ilikerobot?sub_confirmation=1"
+                  title="Youtube"
+                  description="Developer focused videos every Tuesday and Thursdays. Learn how to grow your career and git action traction."
                 />
                 <Feature
-                  title="A titile"
-                  description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione."
+                  link="https://twitter.com/twitter"
+                  title="Twitter"
+                  description="I tweet sometimes. Find out what I tweet by following my every word as it happens on Twitter."
                 />
               </div>
             </div>
