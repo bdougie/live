@@ -1,3 +1,5 @@
+import imageUrl from '../imageUrl';
+
 const Feature = ({link, title, description}) => {
   return (
     <div>
@@ -5,7 +7,7 @@ const Feature = ({link, title, description}) => {
         <img
           alt={title}
           className="z-20 m-auto h-32 md:h-24"
-          src={`/${title}.png`}
+          src={`/${title.toLowerCase()}.png`}
         />
       </a>
       <div
