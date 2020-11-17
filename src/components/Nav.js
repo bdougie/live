@@ -6,7 +6,7 @@ const links = [
   { name: 'Subscribe', link: 'https://buttondown.email/bdougie' },
   // { name: 'Twitch', link: 'https://twitch.tv/bdougieYO' },
   { name: 'Twitter', link: 'https://twitter.com/bdougieyo' },
-  { name: 'Youtube', link: 'https://www.youtube.com/ilikerobot?sub_confirmation=1' },
+  { name: 'YouTube', link: 'https://www.youtube.com/ilikerobot?sub_confirmation=1' },
   { name: 'Discord', link: 'https://discord.com/invite/gZMKK5q' },
   { name: 'GitHub', link: 'https://github.com/bdougie/live' },
 ];
