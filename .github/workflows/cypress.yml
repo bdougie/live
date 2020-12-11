@@ -8,6 +8,3 @@ jobs:
         uses: actions/checkout@v1
       - name: Cypress run
         uses: cypress-io/github-action@v2
-        with:
-          start: yarn next dev
-          wait-on: 'http://localhost:3000'
