@@ -119,7 +119,7 @@ export const PostsRoot = () => {
                   description="Developer focused videos every Tuesday and Thursdays. Learn how to grow your career and git action traction."
                 />
                 <Feature
-                  link="https://twitter.com/twitter"
+                  link="https://twitter.com/bdougieYO"
                   title="Twitter"
                   description="I tweet sometimes. Find out what I tweet by following my every word as it happens on Twitter."
                 />
