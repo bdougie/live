@@ -9,7 +9,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
       - name: Audit live URL
-        uses: jakejarvis/lighthouse-action@master
+        uses: bdougie/lighthouse-action@master
         with:
           url: 'https://bdougie.live'
       - name: Upload results as an artifact
