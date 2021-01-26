@@ -1,0 +1,19 @@
+name: With server
+on: [push]
+jobs:
+  cypress-run:
+    runs-on: ubuntu-16.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+      - name: Audit live URL
+        uses: jakejarvis/lighthouse-action@master
+        with:
+          url: 'https://bdougie.live'
+      - name: Upload results as an artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: report
+          path: './report'
