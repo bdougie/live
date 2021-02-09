@@ -160,3 +160,5 @@ When a request comes in to the server, the server creates a mock Relay environme
 React renders the app to a string, which is sent to the client.
 
 On the client, React rehydates the app. To prevent Relay from showing a loading state, we inject the serialized record source with `getStaticProps`. That data is stored in the environment before Relay makes its first query. The `fetchPolicy` opt is set to "store-and-network" so that it uses the data from the store instead of showing a loading state.
+
+new line Yo!
