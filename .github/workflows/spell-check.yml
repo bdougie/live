@@ -13,3 +13,4 @@ jobs:
           token: ${{ secrets.BDOUGIE_TOKEN }}
           commit-message: 'Fixes by misspell-fixer'
           title: 'Typos fix by misspell-fixer'
+          base: main
