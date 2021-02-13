@@ -5,7 +5,7 @@ import { useOnClickOutside } from '../utils/hooks';
 const links = [
   { name: 'Subscribe', link: 'https://buttondown.email/bdougie' },
   // { name: 'Twitch', link: 'https://twitch.tv/bdougieYO' },
-  { name: 'Twitter', link: 'https://twitter.com/bdougieyo' },
+  { name: 'Twitter', link: 'https://twtter.com/bdougieyo' },
   { name: 'YouTube', link: 'https://www.youtube.com/ilikerobot?sub_confirmation=1' },
   { name: 'Discord', link: 'https://discord.com/invite/gZMKK5q' },
   { name: 'GitHub', link: 'https://github.com/bdougie/live' },
