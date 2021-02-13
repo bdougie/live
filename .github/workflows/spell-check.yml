@@ -1,6 +1,6 @@
 name: Spell Checking
 
-on: pull_request
+on: push
 
 jobs:
   spellCheck:
