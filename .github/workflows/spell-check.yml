@@ -11,3 +11,5 @@ jobs:
       - uses: peter-evans/create-pull-request@v3.8.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'Fixes by misspell-fixer'
+          title: 'Typos fix by misspell-fixer'
