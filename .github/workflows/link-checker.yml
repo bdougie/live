@@ -7,6 +7,7 @@ on:
 
 env:
   URL: https://bdougie.live
+  CONFIG: hydra.config.json
 
 jobs:
   build:
