@@ -10,6 +10,6 @@ jobs:
       - uses: sobolevn/misspell-fixer-action@master
       - uses: peter-evans/create-pull-request@v3.8.2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.BDOUGIE_TOKEN }}
           commit-message: 'Fixes by misspell-fixer'
           title: 'Typos fix by misspell-fixer'
