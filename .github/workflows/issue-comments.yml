@@ -3,8 +3,8 @@ on:
   issue_comment:
     types: [created, edited]
 
-  jobs:
+jobs:
   comment-run:
     runs-on: ubuntu-latest
     steps:
-      uses: bdougie/gipht-bot@main
+      - uses: bdougie/gipht-bot@main
