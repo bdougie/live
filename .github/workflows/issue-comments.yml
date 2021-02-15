@@ -10,3 +10,4 @@ jobs:
       - uses: bdougie/gipht-bot@main
         env:
           GIPHY_TOKEN: ${{ secrets.GIPHY_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.BDOUGIE_TOKEN }}
