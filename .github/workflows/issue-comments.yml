@@ -8,3 +8,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: bdougie/gipht-bot@main
+        env:
+          GIPHY_TOKEN: ${{ secrets.GIPHY_TOKEN }}
