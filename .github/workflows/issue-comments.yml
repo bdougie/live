@@ -1,13 +1,13 @@
 name: "Comment run"
 on:
   issue_comment:
-    types: [created, edited]
+    types: [created]
 
 jobs:
   comment-run:
     runs-on: ubuntu-latest
     steps:
-      - uses: bdougie/gipht-bot@main
+      - uses: bdougie/gipht-action@main
         env:
           GIPHY_TOKEN: ${{ secrets.GIPHY_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.BDOUGIE_TOKEN }}
