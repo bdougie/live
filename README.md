@@ -9,7 +9,7 @@ Schedule for streams can be found at [twitch.tv/bdougieYO](https://www.twitch.tv
 
 1. Invite others to live code with @bdougie
 2. Show off code and talk about projects. 
-3. Answer code questions
+3. Answer code questionssdffsd
 
 ## Links
 
