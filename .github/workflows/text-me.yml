@@ -1,4 +1,4 @@
-name: Why did you do it?
+name: PR text MSG
 on: [pull_request]
 jobs:
   text:
@@ -7,7 +7,7 @@ jobs:
     - name: 'Sending SMS Notification'
       uses: twilio-labs/actions-sms@v1
       with:
-        fromPhoneNumber: '+1(234)5678901'
+        fromPhoneNumber: '+1(267)8282212'
         toPhoneNumber: ${{ secrets.PAGER_NUMBER }}
         message: 'Hello from Twilio'
       env:
