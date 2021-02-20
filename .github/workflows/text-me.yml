@@ -1,14 +1,16 @@
 name: Why did you do it?
-on: [push]
+on: [pull_request]
 jobs:
-
-- name: 'Sending SMS Notification'
-  uses: twilio-labs/actions-sms@v1
-  with:
-    fromPhoneNumber: '+1(234)5678901'
-    toPhoneNumber: ${{ secrets.PAGER_NUMBER }}
-    message: 'Hello from Twilio'
-  env:
-    TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
-    TWILIO_API_KEY: ${{ secrets.TWILIO_API_KEY }}
-    TWILIO_API_SECRET: ${{ secrets.TWILIO_API_SECRET }}
+  text:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Sending SMS Notification'
+      uses: twilio-labs/actions-sms@v1
+      with:
+        fromPhoneNumber: '+1(234)5678901'
+        toPhoneNumber: ${{ secrets.PAGER_NUMBER }}
+        message: 'Hello from Twilio'
+      env:
+        TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+        TWILIO_API_KEY: ${{ secrets.TWILIO_API_KEY }}
+        TWILIO_API_SECRET: ${{ secrets.TWILIO_API_SECRET }}
