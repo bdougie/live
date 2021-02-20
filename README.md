@@ -1,7 +1,7 @@
 # bdougie.live
 This blog powered by GitHub issues
 fdsfdsdfs
-A location where individuals can come together and watch a few people stream their code. This repo is powered by [oneblog](https://github.com/onegraph/oneblog).
+A location where individuals can come together and watch a few people stream their code. This repo is powered by [oneblog](https://github.com/onegraph/oneblog).sdffffd
 
 Schedule for streams can be found at [twitch.tv/bdougieYO](https://www.twitch.tv/bdougieyo).
 
