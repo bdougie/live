@@ -9,7 +9,7 @@ jobs:
       with:
         fromPhoneNumber: '+1(267)8282212'
         toPhoneNumber: ${{ secrets.PAGER_NUMBER }}
-        message: 'Hello from Twilio'
+        message: 'AYe boy you got a PR, FYI this is Twilio'
       env:
         TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
         TWILIO_API_KEY: ${{ secrets.TWILIO_API_KEY }}
