@@ -7,30 +7,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the Project Board
-      - uses: actions/github-script@v3
-      with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
-        script: |
-          const query = `query {
-              repository(name: "live", owner: "bdougie") {
-                project(number: 1) {
-                  id
-                  name
-                  columns(last: 1) {
-                    edges {
-                      node {
-                        id
-                        name
-                        cards(first: 1) {
-                          edges {
-                            node {
-                              id
-                              state
-                              note
-                              content {
-                                ... on GitHubIssue {
-                                  id
-                                  title
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const query = `query {
+                repository(name: "live", owner: "bdougie") {
+                  project(number: 1) {
+                    id
+                    name
+                    columns(last: 1) {
+                      edges {
+                        node {
+                          id
+                          name
+                          cards(first: 1) {
+                            edges {
+                              node {
+                                id
+                                state
+                                note
+                                content {
+                                  ... on GitHubIssue {
+                                    id
+                                    title
+                                  }
                                 }
                               }
                             }
@@ -42,11 +43,10 @@ jobs:
                 }
               }
             }
-          }
-          `;
+            `;
 
-          const result = await github.graphql(query)
-          console.log(result)
+            const result = await github.graphql(query)
+            console.log(result)
 
 
   notifcation:
