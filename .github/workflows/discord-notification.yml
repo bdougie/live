@@ -11,13 +11,44 @@ jobs:
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
-          # github.issues.createComment({
-          #   issue_number: context.issue.number,
-          #   owner: context.repo.owner,
-          #   repo: context.repo.repo,
-          #   body: '👋 Thanks for reporting!'
-          # })
-          
+          const query = `query {
+              repository(name: "live", owner: "bdougie") {
+                project(number: 1) {
+                  id
+                  name
+                  columns(last: 1) {
+                    edges {
+                      node {
+                        id
+                        name
+                        cards(first: 1) {
+                          edges {
+                            node {
+                              id
+                              state
+                              note
+                              content {
+                                ... on GitHubIssue {
+                                  id
+                                  title
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          `;
+
+          const result = await github.graphql(query)
+          console.log(result)
+
+
   notifcation:
     needs: ['checkForContent']
     runs-on: ubuntu-latest
