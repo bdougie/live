@@ -1,0 +1,14 @@
+name: Discord Notifications 
+
+on: workflow_dispatch
+
+jobs:
+  notifcation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'Hello World'
