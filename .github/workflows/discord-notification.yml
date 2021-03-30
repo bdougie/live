@@ -3,7 +3,23 @@ name: Discord Notifications
 on: workflow_dispatch
 
 jobs:
+  checkForContent:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the Project Board
+      - uses: actions/github-script@v3
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          # github.issues.createComment({
+          #   issue_number: context.issue.number,
+          #   owner: context.repo.owner,
+          #   repo: context.repo.repo,
+          #   body: '👋 Thanks for reporting!'
+          # })
+          
   notifcation:
+    needs: ['checkForContent']
     runs-on: ubuntu-latest
     steps:
       - name: Discord notification
