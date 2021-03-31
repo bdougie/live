@@ -11,41 +11,10 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-           const query = `query {
-                repository(name: "live", owner: "bdougie") {
-                  project(number: 1) {
-                    id
-                    name
-                    columns(last: 1) {
-                      edges {
-                        node {
-                          id
-                          name
-                          cards(first: 1) {
-                            edges {
-                              node {
-                                id
-                                state
-                                note
-                                content {
-                                  ... on Issue {
-                                    id
-                                    title
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-            `; 
+            const result = await github.projects.getColumn({
+              column_id: '13354989',
+            });
 
-            const result = await github.graphql(query)
             console.log(result)
 
 
