@@ -15,16 +15,16 @@ jobs:
               column_id: '13354989',
             });
 
-            console.log(result)
+            console.log(result.data)
 
 
-  notifcation:
-    needs: ['checkForContent']
-    runs-on: ubuntu-latest
-    steps:
-      - name: Discord notification
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        uses: Ilshidur/action-discord@master
-        with:
-          args: 'Hello World'
+#   notifcation:
+#     needs: ['checkForContent']
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Discord notification
+#         env:
+#           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+#         uses: Ilshidur/action-discord@master
+#         with:
+#           args: 'Hello World'
