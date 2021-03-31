@@ -11,7 +11,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const result = await github.projects.getColumn({
+            const result = await github.projects.listCards({
               column_id: '13354989',
             });
 
