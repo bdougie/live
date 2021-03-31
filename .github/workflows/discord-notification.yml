@@ -13,6 +13,7 @@ jobs:
           script: |
             const result = await github.projects.listCards({
               column_id: '13354989',
+              archived_state: 'not_archived'
             });
 
             console.log(result.data)
