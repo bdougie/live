@@ -11,7 +11,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const query = `query {
+           const query = `query {
                 repository(name: "live", owner: "bdougie") {
                   project(number: 1) {
                     id
@@ -28,7 +28,7 @@ jobs:
                                 state
                                 note
                                 content {
-                                  ... on GitHubIssue {
+                                  ... on Issue {
                                     id
                                     title
                                   }
@@ -43,7 +43,7 @@ jobs:
                 }
               }
             }
-            `;
+            `; 
 
             const result = await github.graphql(query)
             console.log(result)
