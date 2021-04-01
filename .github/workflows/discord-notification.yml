@@ -16,7 +16,7 @@ jobs:
 
             const result = await github.issues.getLabel({
               owner: context.repo.owner,
-              repo: contex.repo.repo,
+              repo: context.repo.repo,
               name: 'live',
             });
             
