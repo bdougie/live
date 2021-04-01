@@ -10,13 +10,11 @@ jobs:
         uses: actions/github-script@v3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            const result = await github.projects.listCards({
-              column_id: '13354989',
-              archived_state: 'not_archived'
+          script: | 
+            const result = await github.projects.getCard({
+              card_id: 56801078,
             });
-
-            console.log(result.data[0])
+            console.log(result.data)
 
 
 #   notifcation:
