@@ -16,7 +16,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const result = await github.projects.projects.getCard({
+            const result = await github.projects.getCard({
               context.project_card.id,
             });
 
