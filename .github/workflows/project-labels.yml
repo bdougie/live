@@ -17,7 +17,7 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const issue = await github.request(context.payload.project_card.content_url)
-
+            console.log(issue)
             github.issues.addLabels({
               owner: context.repo.owner,
               repo: context.repo.repo,
