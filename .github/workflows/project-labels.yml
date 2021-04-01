@@ -9,10 +9,8 @@ jobs:
   add-label-to-issue:
     runs-on: ubuntu-latest
     steps:
-      - name: Dump context
-        uses: crazy-max/ghaction-dump-context@v1
       - uses: actions/github-script@v3
-        if: github.event_name == 'project_card' && github.event.project_card.content_url        
+        if: github.event_name == 'project_card' && github.event.project_card.content_url && github.event.project_card.column_id == 13354989      
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
@@ -23,4 +21,46 @@ jobs:
               repo: context.repo.repo,
               issue_number: issue.data.number,
               labels: ['live'],
+            });
+      - uses: actions/github-script@v3
+        if: github.event_name == 'project_card' && github.event.project_card.content_url && github.event.project_card.column_id == 13354976      
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const issue = await github.request(context.payload.project_card.content_url)
+            console.log(issue)
+            github.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.data.number,
+              labels: ['publish'],
+            });
+  remove-label-from-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v3
+        if: github.event_name == 'project_card' && github.event.project_card.content_url && github.event.project_card.changes.column_id == 13354989      
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const issue = await github.request(context.payload.project_card.content_url)
+            console.log(issue)
+            github.issues.removeLabel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.data.number,
+              name: 'live',
+            });
+      - uses: actions/github-script@v3
+        if: github.event_name == 'project_card' && github.event.project_card.content_url && github.event.project_card.column_id == 13354976      
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const issue = await github.request(context.payload.project_card.content_url)
+            console.log(issue)
+            github.issues.removeLabel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.data.number,
+              name: 'publish',
             });
