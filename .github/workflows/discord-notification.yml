@@ -16,7 +16,7 @@ jobs:
             });
             console.log(result.data.content_url)
 
-            const issue = await github.request(result.content_url)
+            const issue = await github.request(result.data.content_url)
             console.log(issue.data)
 
 
