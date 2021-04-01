@@ -8,17 +8,17 @@ jobs:
     steps:
       - name: Check out the Project Board
         uses: actions/github-script@v3
+        id: set-result
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: | 
             const result = await github.projects.getCard({
               card_id: 56801078,
             });
-            console.log(result.data.content_url)
 
             const issue = await github.request(result.data.content_url)
-            export ISSUE_DATA=issue.data
-      - run: echo $ISSUE_DATA
+      - name: Get result
+        run: echo "${{steps.set-result.outputs.result}}"
   
 
 #   notifcation:
