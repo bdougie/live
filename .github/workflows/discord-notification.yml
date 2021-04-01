@@ -42,9 +42,11 @@ jobs:
           ISSUE_TITLE="$(jq '.data.title' result.json)"
           echo The result is $ISSUE_TITLE
           echo ::set-output name=title::$(echo ${$ISSUE_TITLE})
-      - name: Discord notification
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        uses: Ilshidur/action-discord@master
-        with:
-          args: 'Hello World, {{ steps.data.outputs.title }} is up next for streaming'
+      - run: |
+          echo ${{ env.ISSUE_TITLE }}
+#       - name: Discord notification
+#         env:
+#           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+#         uses: Ilshidur/action-discord@master
+#         with:
+#           args: 'Hello World, ${{ steps.data.outputs.title }} is up next for streaming'
