@@ -16,7 +16,7 @@ jobs:
               archived_state: 'not_archived'
             });
 
-            console.log(result.data)
+            console.log(result.data[0])
 
 
 #   notifcation:
