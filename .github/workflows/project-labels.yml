@@ -1,0 +1,24 @@
+name: Add the label to cards
+
+on:
+  workflow_dispatch:
+  project_card:
+    types: [moved]
+    
+  jobs:
+  checkForContent:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check the Project Board
+        run: |
+          echo github.event
+        
+#         uses: actions/github-script@v3
+#         with:
+#           github-token: ${{secrets.GITHUB_TOKEN}}
+#           script: |
+#             const result = await github.projects.listCards({
+#               column_id: '13354989',
+#               archived_state: 'not_archived'
+#             });
+#             console.log(result.data[0])
