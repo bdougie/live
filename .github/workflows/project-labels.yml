@@ -9,10 +9,8 @@ jobs:
   checkForContent:
     runs-on: ubuntu-latest
     steps:
-      - name: Dump context
-        uses: crazy-max/ghaction-dump-context@v1
-        if: github.event_name == 'project_card' && github.event.project_card        
       - uses: actions/github-script@v3
+        if: github.event_name == 'project_card' && github.event.project_card        
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
@@ -20,4 +18,9 @@ jobs:
               context.project_card.id,
             });
 
-            console.log(result.data)
+            github.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              labels: 'live',
+            });
