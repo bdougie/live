@@ -14,10 +14,10 @@ jobs:
           script: | 
             const fs = require('fs')
 
-            const result = await github.issues.getLabel({
+            const result = await github.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              name: 'live',
+              labels: 'live',
             });
             
             console.log(result)
