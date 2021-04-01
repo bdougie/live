@@ -39,7 +39,7 @@ jobs:
         shell: bash
         run: |
           value=`cat result.json`
-          BODY="$(jq '.' result.json)"
+          BODY="$(jq '.data.title' result.json)"
           echo The result is $BODY
       #       - name: Discord notification
       #         env:
