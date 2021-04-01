@@ -1,7 +1,10 @@
 name: Discord Notifications 
 
-on: workflow_dispatch
-
+on: 
+  workflow_dispatch:
+  schedule: 
+   - cron: "0 13 * * 2,5"
+   
 jobs:
   check-for-live-content:
     runs-on: ubuntu-latest
@@ -19,9 +22,7 @@ jobs:
               repo: context.repo.repo,
               labels: 'live',
             });
-            
-            console.log(result)
-            
+                        
             const issue = result.data[0]
             fs.writeFileSync('result.json', JSON.stringify(issue));
       - name: Upload issue artifact
@@ -29,27 +30,26 @@ jobs:
         with:
           name: issue-data
           path: result.json
-  
 
-#   send-discord-notifcation:
-#     needs: ['check-for-live-content']
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Download issue artifact
-#         uses: actions/download-artifact@v2
-#         with:
-#           name: issue-data
-#       - name: Grab the issue title
-#         id: data
-#         shell: bash
-#         run: |
-#           ISSUE_TITLE="$(jq '.data.title' result.json)"
-#           echo $ISSUE_TITLE
+  send-discord-notifcation:
+    needs: ['check-for-live-content']
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download issue artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: issue-data
+      - name: Grab the issue title
+        id: data
+        shell: bash
+        run: |
+          ISSUE_TITLE="$(jq '.data.title' result.json)"
+          echo $ISSUE_TITLE
           
-#           echo ::set-output name=title::${ISSUE_TITLE}
-#       - name: Discord notification
-#         env:
-#           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-#         uses: Ilshidur/action-discord@master
-#         with:
-#           args: 'Hey folks, bdougie is going live today and working on ${{ steps.data.outputs.title }}. See you later!'
+          echo ::set-output name=title::${ISSUE_TITLE}
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'Hey folks, bdougie is going live today to ${{ steps.data.outputs.title }}. See you later!'
