@@ -6,7 +6,7 @@ on:
     types: [moved]
     
 jobs:
-  checkForContent:
+  add-label-to-issue:
     runs-on: ubuntu-latest
     steps:
       - name: Dump context
@@ -16,6 +16,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
+            console.log(context)
             const result = await github.projects.getCard({
               context.payload.event.project_card.id,
             });
