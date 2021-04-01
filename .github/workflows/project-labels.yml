@@ -17,13 +17,3 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             console.log(context)
-            const result = await github.projects.getCard({
-              context.payload.event.project_card.id,
-            });
-
-            github.issues.addLabels({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issue.number,
-              labels: 'live',
-            });
