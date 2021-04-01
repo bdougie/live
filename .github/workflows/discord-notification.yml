@@ -51,7 +51,7 @@ jobs:
       - name: Just print stuff
         run: |
           echo $ISSUE_TITLE
-          echo ${{ steps.data.outputs }}
+          echo ${{ steps.data.outputs.title }}
 #       - name: Discord notification
 #         env:
 #           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
