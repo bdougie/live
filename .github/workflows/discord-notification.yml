@@ -1,31 +1,55 @@
 name: Discord Notifications 
 
-on: workflow_dispatch
-
+on: 
+  workflow_dispatch:
+  schedule: 
+   - cron: "0 13 * * 2,5"
+   
 jobs:
-  checkForContent:
+  check-for-live-content:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the Project Board
         uses: actions/github-script@v3
+        id: set-result
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            const result = await github.projects.listCards({
-              column_id: '13354989',
-              archived_state: 'not_archived'
+          script: | 
+            const fs = require('fs')
+
+            const result = await github.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: 'live',
             });
+                        
+            const issue = result.data[0]
+            fs.writeFileSync('result.json', JSON.stringify(issue));
+      - name: Upload issue artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: issue-data
+          path: result.json
 
-            console.log(result.data[0])
-
-
-#   notifcation:
-#     needs: ['checkForContent']
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Discord notification
-#         env:
-#           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-#         uses: Ilshidur/action-discord@master
-#         with:
-#           args: 'Hello World'
+  send-discord-notifcation:
+    needs: ['check-for-live-content']
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download issue artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: issue-data
+      - name: Grab the issue title
+        id: data
+        shell: bash
+        run: |
+          ISSUE_TITLE="$(jq '.data.title' result.json)"
+          echo $ISSUE_TITLE
+          
+          echo ::set-output name=title::${ISSUE_TITLE}
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'Hey folks, bdougie is going live today to ${{ steps.data.outputs.title }}. See you later!'
