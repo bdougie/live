@@ -3,7 +3,7 @@ name: Discord Notifications
 on: workflow_dispatch
 
 jobs:
-  checkForContent:
+  check-for-live-content:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the Project Board
@@ -20,20 +20,29 @@ jobs:
 
             const issue = await github.request(result.data.content_url)
             fs.writeFileSync('result.json', JSON.stringify(issue));
-      - name: Upload math result for job 1
+      - name: Upload issue artifact
         uses: actions/upload-artifact@v2
         with:
           name: issue-data
           path: result.json
   
 
-#   notifcation:
-#     needs: ['checkForContent']
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Discord notification
-#         env:
-#           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-#         uses: Ilshidur/action-discord@master
-#         with:
-#           args: 'Hello World'
+  send-discord-notifcation:
+    needs: ['check-for-live-content']
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download issue artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: issue-data
+      - name: Set download as variable
+        shell: bash
+        run: |
+          TASK=`cat result.json`
+      - run: echo $TASK
+      #       - name: Discord notification
+      #         env:
+      # #           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      # #         uses: Ilshidur/action-discord@master
+      # #         with:
+      # #           args: 'Hello World'
