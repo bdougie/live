@@ -22,5 +22,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: issue.data.number,
-              labels: 'live',
+              labels: ['live'],
             });
