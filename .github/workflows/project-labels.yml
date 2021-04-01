@@ -11,13 +11,13 @@ jobs:
     steps:
       - name: Dump context
         uses: crazy-max/ghaction-dump-context@v1
-        
-#         uses: actions/github-script@v3
-#         with:
-#           github-token: ${{secrets.GITHUB_TOKEN}}
-#           script: |
-#             const result = await github.projects.listCards({
-#               column_id: '13354989',
-#               archived_state: 'not_archived'
-#             });
-#             console.log(result.data[0])
+        if: github.event_name == 'project_card' && github.event.project_card        
+      - uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const result = await github.projects.projects.getCard({
+              context.project_card.id,
+            });
+
+            console.log(result.data)
