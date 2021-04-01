@@ -21,6 +21,6 @@ jobs:
             github.issues.addLabels({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: issue.number,
+              issue_number: issue.data.number,
               labels: 'live',
             });
