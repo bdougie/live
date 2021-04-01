@@ -39,7 +39,7 @@ jobs:
         id: data
         shell: bash
         run: |
-          echo ISSUE_TITLE="$(jq '.data.title' result.json)" >> GITHUB_ENV
+          echo "ISSUE_TITLE=$(jq '.data.title' result.json)" >> GITHUB_ENV
       - run: |
           echo ${{ env.ISSUE_TITLE }}
 #       - name: Discord notification
