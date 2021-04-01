@@ -9,7 +9,10 @@ jobs:
   checkForContent:
     runs-on: ubuntu-latest
     steps:
+      - name: Dump context
+        uses: crazy-max/ghaction-dump-context@v1
       - uses: actions/github-script@v3
+        if: github.event_name == 'project_card' && github.event.project_card        
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
