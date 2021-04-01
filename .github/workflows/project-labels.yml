@@ -12,8 +12,15 @@ jobs:
       - name: Dump context
         uses: crazy-max/ghaction-dump-context@v1
       - uses: actions/github-script@v3
-        if: github.event_name == 'project_card' && github.event.project_card        
+        if: github.event_name == 'project_card' && github.event.project_card.content_url        
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            console.log(context)
+            const issue = await github.request(context.payload.project_card.content_url)
+
+            github.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              labels: 'live',
+            });
