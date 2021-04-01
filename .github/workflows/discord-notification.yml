@@ -39,7 +39,7 @@ jobs:
         shell: bash
         run: |
           ISSUE_TITLE="$(jq '.data.title' result.json)"
-          echo The result is $BODY
+          echo The result is $ISSUE_TITLE
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
