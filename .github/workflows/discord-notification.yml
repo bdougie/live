@@ -19,7 +19,7 @@ jobs:
             });
 
             const issue = await github.request(result.data.content_url)
-            fs.writeFileSync('result.json', issue);
+            fs.writeFileSync('result.json', JSON.stringify(issue));
       - name: Upload math result for job 1
         uses: actions/upload-artifact@v2
         with:
