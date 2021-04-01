@@ -12,7 +12,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: | 
-            const execa = require(`${process.env.GITHUB_WORKSPACE}/node_modules/fs`)
+            const fs = require(`${process.env.GITHUB_WORKSPACE}/node_modules/fs`)
 
             const result = await github.projects.getCard({
               card_id: 56801078,
