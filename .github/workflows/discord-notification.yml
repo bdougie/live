@@ -39,7 +39,8 @@ jobs:
         shell: bash
         run: |
           value=`cat result.json`
-          echo The result is $value
+          BODY="$(jq '.title' result.json)"
+          echo The result is $BODY
       #       - name: Discord notification
       #         env:
       # #           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
