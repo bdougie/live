@@ -5,7 +5,7 @@ on:
   project_card:
     types: [moved]
     
-  jobs:
+jobs:
   checkForContent:
     runs-on: ubuntu-latest
     steps:
