@@ -9,9 +9,8 @@ jobs:
   checkForContent:
     runs-on: ubuntu-latest
     steps:
-      - name: Check the Project Board
-        run: |
-          echo github.event
+      - name: Dump context
+        uses: crazy-max/ghaction-dump-context@v1
         
 #         uses: actions/github-script@v3
 #         with:
