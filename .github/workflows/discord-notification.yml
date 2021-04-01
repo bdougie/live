@@ -39,17 +39,9 @@ jobs:
         id: data
         shell: bash
         run: |
-          ISSUE_TITLE="$(jq '.data.title' result.json)"
-          echo The result is $ISSUE_TITLE
-          echo ::set-output name=title::$(echo ${$ISSUE_TITLE})
-      - name: Set output variables
-        id: vars2
-        run: |
-          echo ::set-output name=pr_title::"[Test] Add report file $(date +%d-%m-%Y)"
-          echo ::set-output name=pr_body::"This PR was auto-generated on $(date +%d-%m-%Y) \
-            by [create-pull-request](https://github.com/peter-evans/create-pull-request)."
+          echo ISSUE_TITLE="$(jq '.data.title' result.json)" >> GITHUB_ENV
       - run: |
-          echo ${{ steps.vars.outputs.pr_title }}
+          echo ${{ env.ISSUE_TITLE }}
 #       - name: Discord notification
 #         env:
 #           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
