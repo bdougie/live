@@ -42,8 +42,8 @@ jobs:
           ISSUE_TITLE="$(jq '.data.title' result.json)"
           echo $ISSUE_TITLE
           
-          echo ::set-output name=title::$(echo ${$ISSUE_TITLE})
-          echo "ISSUE_TITLE=$ISSUE_TITLE" >> GITHUB_ENV
+          echo ::set-output name=title::${ISSUE_TITLE}
+          echo "ISSUE_TITLE=${ISSUE_TITLE}" >> GITHUB_ENV
       - name: Set environment variables
         run: |
           echo "PR_TITLE=[Test] Add report file $(date +%d-%m-%Y)" >> $GITHUB_ENV
