@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v3
-        if: github.event_name == 'project_card' && github.event.project_card        
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
