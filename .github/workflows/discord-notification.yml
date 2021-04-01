@@ -14,7 +14,8 @@ jobs:
             const result = await github.projects.getCard({
               card_id: 56801078,
             });
-            console.log(result.data)
+            const result = await github.request(result.context_url)
+            console.log(result)
 
 
 #   notifcation:
