@@ -36,10 +36,10 @@ jobs:
         with:
           name: issue-data
       - name: Set download as variable
-        shell: bash
-        run: |
-          TASK=`cat result.json`
-      - run: echo $TASK
+      - run: |
+          export FOO=bar
+          echo "::set-env name=FOO::$FOO"
+      - run: echo $FOO
       #       - name: Discord notification
       #         env:
       # #           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
