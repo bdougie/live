@@ -50,8 +50,8 @@ jobs:
           echo "PR_BODY=This PR was auto-generated on $(date +%d-%m-%Y) by [create-pull-request](https://github.com/peter-evans/create-pull-request)." >> $GITHUB_ENV
       - name: Just print stuff
         run: |
-          echo ${{ env.ISSUE_TITLE }}
-          echo ${{ steps.data.outputs.title }}
+          echo env.ISSUE_TITLE
+          echo steps.data.outputs.title
 #       - name: Discord notification
 #         env:
 #           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
