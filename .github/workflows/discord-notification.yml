@@ -35,10 +35,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: issue-data
-      - run: |
-          export FOO=bar
-          echo "::set-env name=FOO::$FOO"
-      - run: echo $FOO
+      - name: Print the final result
+        shell: bash
+        run: |
+          value=`cat result.json`
+          echo The result is $value
       #       - name: Discord notification
       #         env:
       # #           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
