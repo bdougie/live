@@ -15,7 +15,7 @@ jobs:
               card_id: 56801078,
             });
             const issueData = await github.request(result.context_url)
-            console.log(issueData)
+            console.log(issueData.data)
 
 
 #   notifcation:
