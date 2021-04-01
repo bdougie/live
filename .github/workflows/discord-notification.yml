@@ -38,12 +38,11 @@ jobs:
       - name: Print the final result
         shell: bash
         run: |
-          value=`cat result.json`
-          BODY="$(jq '.data.title' result.json)"
+          ISSUE_TITLE="$(jq '.data.title' result.json)"
           echo The result is $BODY
-      #       - name: Discord notification
-      #         env:
-      # #           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      # #         uses: Ilshidur/action-discord@master
-      # #         with:
-      # #           args: 'Hello World'
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'Hello World, {{ $ISSUE_TITLE }} is up next for streaming'
