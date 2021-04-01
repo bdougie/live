@@ -3,12 +3,29 @@ name: Discord Notifications
 on: workflow_dispatch
 
 jobs:
-  notifcation:
+  checkForContent:
     runs-on: ubuntu-latest
     steps:
-      - name: Discord notification
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        uses: Ilshidur/action-discord@master
+      - name: Check out the Project Board
+        uses: actions/github-script@v3
         with:
-          args: 'Hello World'
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const result = await github.projects.listCards({
+              column_id: '13354989',
+              archived_state: 'not_archived'
+            });
+
+            console.log(result.data[0])
+
+
+#   notifcation:
+#     needs: ['checkForContent']
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Discord notification
+#         env:
+#           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+#         uses: Ilshidur/action-discord@master
+#         with:
+#           args: 'Hello World'
