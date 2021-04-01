@@ -39,13 +39,17 @@ jobs:
         id: data
         shell: bash
         run: |
-          echo "ISSUE_TITLE=$(jq '.data.title' result.json)" >> GITHUB_ENV
+          ISSUE_TITLE="$(jq '.data.title' result.json)"
+          
+          echo ::set-output name=title::$(echo ${$ISSUE_TITLE})
+          echo "ISSUE_TITLE=$ISSUE_TITLE" >> GITHUB_ENV
       - name: Set environment variables
         run: |
           echo "PR_TITLE=[Test] Add report file $(date +%d-%m-%Y)" >> $GITHUB_ENV
           echo "PR_BODY=This PR was auto-generated on $(date +%d-%m-%Y) by [create-pull-request](https://github.com/peter-evans/create-pull-request)." >> $GITHUB_ENV
       - run: |
           echo "${{ env.ISSUE_TITLE }}"
+          echo "${{ steps.data.outputs.title }}"
 #       - name: Discord notification
 #         env:
 #           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
