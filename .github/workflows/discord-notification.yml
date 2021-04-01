@@ -17,8 +17,12 @@ jobs:
             });
 
             const issue = await github.request(result.data.content_url)
-      - name: Get result
-        run: echo "${{steps.set-result.outputs.result}}"
+            fs.writeFileSync('result.json', issue);
+      - name: Upload math result for job 1
+        uses: actions/upload-artifact@v2
+        with:
+          name: issue-data
+          path: result.json
   
 
 #   notifcation:
