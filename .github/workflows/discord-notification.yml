@@ -52,9 +52,9 @@ jobs:
         run: |
           echo $ISSUE_TITLE
           echo ${{ steps.data.outputs.title }}
-#       - name: Discord notification
-#         env:
-#           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-#         uses: Ilshidur/action-discord@master
-#         with:
-#           args: 'Hello World, ${{ steps.data.outputs.title }} is up next for streaming'
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'Hello World [this is a test], ${{ steps.data.outputs.title }} is up next for streaming'
