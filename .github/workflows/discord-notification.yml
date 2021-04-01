@@ -17,8 +17,9 @@ jobs:
             console.log(result.data.content_url)
 
             const issue = await github.request(result.data.content_url)
-            console.log(issue.data)
-
+            export ISSUE_DATA=issue.data
+      - run: echo $ISSUE_DATA
+  
 
 #   notifcation:
 #     needs: ['checkForContent']
