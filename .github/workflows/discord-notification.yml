@@ -3,7 +3,7 @@ name: Discord Notifications
 on: 
   workflow_dispatch:
   schedule: 
-   - cron: "0 13 * * 2,5"
+   - cron: "7 13 * * 2,5"
    
 jobs:
   check-for-live-content:
