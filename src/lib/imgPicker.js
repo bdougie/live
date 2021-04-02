@@ -4,6 +4,7 @@ import friend from '../../public/friend.png';
 import actions from '../../public/gh-actions.png';
 import bey from '../../public/bey.png';
 import tds from '../../public/tds.png';
+import ospp from '../../public/ospp.png';
 
 const images = {
   friend: friend,
@@ -11,6 +12,7 @@ const images = {
   actions: actions,
   bey: bey,
   tds: tds,
+  ospp: ospp,
 };
 
 export default function imgPicker(labels) {
