@@ -43,7 +43,7 @@ jobs:
         id: data
         shell: bash
         run: |
-          ISSUE_TITLE="$(jq '.data.title' result.json)"
+          ISSUE_TITLE="$(jq '.title' result.json)"
           echo $ISSUE_TITLE
           
           echo ::set-output name=title::${ISSUE_TITLE}
