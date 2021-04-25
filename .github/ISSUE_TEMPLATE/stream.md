@@ -25,7 +25,7 @@ _DAY_ _CAL_DATE_ _TIME_ UTC-7
 - [Twitter](https://twitter.com/bdougieyo)
 - [bdougie/live on GitHub](https://github.com/bdougie/live)
 - [bdougie.live site](https://bdougie.live)
-- [Open Sauced Discord](https://discord.gg/gZMKK5q)
+- [Open Sauced Discord](https://discord.gg/U2peSNf23P)
 - [Spotify Music playlist](https://open.spotify.com/playlist/7zrrIjhj4DuiVC9D6MRVMZ?si=S0QGUYxZTmC278Qw_jMwZg)
 - [Party Corgi Streamer Discord](https://discordapp.com/invite/S9Gdagv)
 - [The Live Coders](https://livecoders.dev)
