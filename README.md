@@ -18,7 +18,7 @@ Schedule for streams can be found at [twitch.tv/bdougieYO](https://www.twitch.tv
 - GitHub: https://github.com/bdougie/live
 - Site: https://bdougie.live
 - Twitter: https://twitter.com/bdougieYO
-- Discord: https://discord.gg/gZMKK5q
+- Discord: https://discord.gg/U2peSNf23P
 
 ## Details
 
