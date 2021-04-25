@@ -7,7 +7,7 @@ const links = [
   // { name: 'Twitch', link: 'https://twitch.tv/bdougieYO' },
   { name: 'Twitter', link: 'https://twitter.com/bdougieyo' },
   { name: 'YouTube', link: 'https://www.youtube.com/ilikerobot?sub_confirmation=1' },
-  { name: 'Discord', link: 'https://discord.com/invite/gZMKK5q' },
+  { name: 'Discord', link: 'https://discord.com/invite/U2peSNf23P' },
   { name: 'GitHub', link: 'https://github.com/bdougie/live' },
 ];
 

@@ -66,7 +66,7 @@ GitHub has support for draft pull requests, which will disable the merge button 
 
 ## Community
 
-Have Questions? Join the conversation in our [Discord](https://discord.gg/gZMKK5q).
+Have Questions? Join the conversation in our [Discord](https://discord.gg/U2peSNf23P).
 
 ## Coding Tips
 - Ask questions if you are stuck. 
