@@ -52,4 +52,4 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Hey folks, bdougie is going live today to ${{ steps.data.outputs.title }} at 1pm PDT. See you later!'
+          args: '@NotificationSquad, bdougie is going live today to ${{ steps.data.outputs.title }} at 1pm PT. Be sure to #share-your-content so you get a shout out live!'
