@@ -202,7 +202,7 @@ function AppWrapper({Component, pageProps}: any) {
             <div className="flex flex-col justify-between max-w-xl p-4 mx-auto md:flex-row sm:px-6 lg:max-w-screen-xl lg:px-8">
               <span className="text-xl font-bold">bdougie.live</span>
               <span className="text-sm text-gray-400">
-                © 2020 All Rights Reserved. bdougie.live
+                © {new Date().getFullYear()} All Rights Reserved. bdougie.live
               </span>
             </div>
           </footer>
