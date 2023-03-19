@@ -35,23 +35,21 @@ import type {Post_post} from './__generated__/Post_post.graphql';
 // because we want to add reactions on behalf of the logged-in user, not the
 // persisted auth
 const addReactionMutation = graphql`
-  mutation Post_AddReactionMutation($input: GitHubAddReactionInput!)
+  mutation Post_AddReactionMutation($input: AddReactionInput!)
   @persistedQueryConfiguration(freeVariables: ["input"]) {
-    gitHub {
-      addReaction(input: $input) {
-        reaction {
-          content
-          user {
-            login
-            name
+    addReaction(input: $input) {
+      reaction {
+        content
+        user {
+          login
+          name
+        }
+        reactable {
+          ... on Issue {
+            ...Post_post
           }
-          reactable {
-            ... on GitHubIssue {
-              ...Post_post
-            }
-            ... on GitHubComment {
-              ...Comment_comment
-            }
+          ... on Comment {
+            ...Comment_comment
           }
         }
       }
@@ -60,23 +58,21 @@ const addReactionMutation = graphql`
 `;
 
 const removeReactionMutation = graphql`
-  mutation Post_RemoveReactionMutation($input: GitHubRemoveReactionInput!)
+  mutation Post_RemoveReactionMutation($input: RemoveReactionInput!)
   @persistedQueryConfiguration(freeVariables: ["input"]) {
-    gitHub {
-      removeReaction(input: $input) {
-        reaction {
-          content
-          user {
-            login
-            name
+    removeReaction(input: $input) {
+      reaction {
+        content
+        user {
+          login
+          name
+        }
+        reactable {
+          ... on Issue {
+            ...Post_post
           }
-          reactable {
-            ... on GitHubIssue {
-              ...Post_post
-            }
-            ... on GitHubComment {
-              ...Comment_comment
-            }
+          ... on Comment {
+            ...Comment_comment
           }
         }
       }
@@ -201,9 +197,8 @@ const EmojiPicker = ({
           borderLeft: i === 0 ? 'none' : '1px solid #e1e4e8',
         }}
         key={reaction}
-        onClick={() =>
-          isSelected ? onDeselect(reaction) : onSelect(reaction)
-        }>
+        onClick={() => (isSelected ? onDeselect(reaction) : onSelect(reaction))}
+      >
         <span role="img">{emojiForContent(reaction)}</span>
       </button>
     );
@@ -537,7 +532,7 @@ export const Post = ({relay, post, context}: Props) => {
       loginStatus === 'logged-in'
     ) {
       // Refetch post if we log in to reset `viewerHasReacted` and friends
-      loadQuery.loadQuery(
+      loadQuery(
         environment,
         postRootQuery,
         {issueNumber: number},
@@ -553,14 +548,14 @@ export const Post = ({relay, post, context}: Props) => {
   // from OneGraph once the client-side code is loaded, esp. when logged in
   React.useEffect(() => {
     if (context === 'list') {
-      loadQuery.loadQuery(
+      loadQuery(
         environment,
         postRootQuery,
         {issueNumber: number},
         {fetchPolicy: 'store-or-network'},
       );
     } else if (context === 'details') {
-      loadQuery.loadQuery(
+      loadQuery(
         environment,
         postsRootQuery,
         {},
@@ -573,10 +568,13 @@ export const Post = ({relay, post, context}: Props) => {
   return (
     <PostBox>
       <div className="max-w-3xl mx-auto ">
-        <small><a className="text-center" href={post.url} target="_blank">View on GitHub</a></small>
+        <small>
+          <a className="text-center" href={post.url} target="_blank">
+            View on GitHub
+          </a>
+        </small>
         <br />
         <br />
-
 
         {authors.length > 0 ? (
           <Box direction="row" gap="medium">
@@ -663,7 +661,7 @@ export const Post = ({relay, post, context}: Props) => {
 
 export default createFragmentContainer(Post, {
   post: graphql`
-    fragment Post_post on GitHubIssue {
+    fragment Post_post on Issue {
       id
       number
       title

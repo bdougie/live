@@ -8,28 +8,29 @@ import {PostBox} from './Post';
 import {useRouter} from 'next/router';
 
 function Header({gitHub, adminLinks}) {
-  const {pathname} = useRouter();
+  return null;
+  // const {pathname} = useRouter();
 
-  return (
-    <>
+  // return (
+  //   <>
 
-      {/* removed until I can move it to the Nav 
-      <Box margin="medium" style={{position: 'absolute', top: 0, right: 0}}>
-        <Avatar gitHub={gitHub} adminLinks={adminLinks} />
-      </Box>
-      <PostBox>
-        <Box
-          pad={{horizontal: 'medium'}}
-          border={{
-            size: 'xsmall',
-            side: 'bottom',
-            color: 'rgba(0,0,0,0.1)',
-          }}>
-        </Box>
-      </PostBox>
-    */}
-    </>
-  );
+  //     {/* removed until I can move it to the Nav 
+  //     <Box margin="medium" style={{position: 'absolute', top: 0, right: 0}}>
+  //       <Avatar gitHub={gitHub} adminLinks={adminLinks} />
+  //     </Box>
+  //     <PostBox>
+  //       <Box
+  //         pad={{horizontal: 'medium'}}
+  //         border={{
+  //           size: 'xsmall',
+  //           side: 'bottom',
+  //           color: 'rgba(0,0,0,0.1)',
+  //         }}>
+  //       </Box>
+  //     </PostBox>
+  //   */}
+  //   </>
+  // );
 }
 
 export default Header;

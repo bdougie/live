@@ -47,23 +47,21 @@ import type {PostCard_post} from './__generated__/PostCard_post.graphql';
 // because we want to add reactions on behalf of the logged-in user, not the
 // persisted auth
 const addReactionMutation = graphql`
-  mutation PostCard_AddReactionMutation($input: GitHubAddReactionInput!)
+  mutation PostCard_AddReactionMutation($input: AddReactionInput!)
   @persistedQueryConfiguration(freeVariables: ["input"]) {
-    gitHub {
-      addReaction(input: $input) {
-        reaction {
-          content
-          user {
-            login
-            name
+    addReaction(input: $input) {
+      reaction {
+        content
+        user {
+          login
+          name
+        }
+        reactable {
+          ... on Issue {
+            ...PostCard_post
           }
-          reactable {
-            ... on GitHubIssue {
-              ...PostCard_post
-            }
-            ... on GitHubComment {
-              ...Comment_comment
-            }
+          ... on Comment {
+            ...Comment_comment
           }
         }
       }
@@ -72,23 +70,21 @@ const addReactionMutation = graphql`
 `;
 
 const removeReactionMutation = graphql`
-  mutation PostCard_RemoveReactionMutation($input: GitHubRemoveReactionInput!)
+  mutation PostCard_RemoveReactionMutation($input: RemoveReactionInput!)
   @persistedQueryConfiguration(freeVariables: ["input"]) {
-    gitHub {
-      removeReaction(input: $input) {
-        reaction {
-          content
-          user {
-            login
-            name
+    removeReaction(input: $input) {
+      reaction {
+        content
+        user {
+          login
+          name
+        }
+        reactable {
+          ... on Issue {
+            ...PostCard_post
           }
-          reactable {
-            ... on GitHubIssue {
-              ...PostCard_post
-            }
-            ... on GitHubComment {
-              ...Comment_comment
-            }
+          ... on Comment {
+            ...Comment_comment
           }
         }
       }
@@ -545,14 +541,14 @@ export const PostCard = React.forwardRef<Props, typeof Box>(
     const number = post.number;
     React.useEffect(() => {
       if (context === 'list') {
-        loadQuery.loadQuery(
+        loadQuery(
           environment,
           postRootQuery,
           {issueNumber: number},
           {fetchPolicy: 'store-or-network'},
         );
       } else if (context === 'details') {
-        loadQuery.loadQuery(
+        loadQuery(
           environment,
           postsRootQuery,
           {},
@@ -607,7 +603,7 @@ export const PostCard = React.forwardRef<Props, typeof Box>(
 
 export default createFragmentContainer(PostCard, {
   post: graphql`
-    fragment PostCard_post on GitHubIssue {
+    fragment PostCard_post on Issue {
       id
       number
       title

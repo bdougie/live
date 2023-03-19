@@ -13,6 +13,7 @@ const Link = ({
 }) => {
   return (
     <NextLink
+      legacyBehavior
       href={href}
       as={as}
       replace={replace}
