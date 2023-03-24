@@ -41,7 +41,7 @@ const Posts = ({relay, repository}: Props) => {
   return (
     <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {issues.map((node, i) => (
-        <div className="flex flex-col h-full overflow-hidden border border-gray-200 rounded-lg">
+        <div key={node.id} className="flex flex-col h-full overflow-hidden border border-gray-200 rounded-lg">
           <PostCard
             context="list"
             post={node}
@@ -68,12 +68,12 @@ export default createPaginationContainer(
   Posts,
   {
     repository: graphql`
-      fragment Posts_repository on GitHubRepository
+      fragment Posts_repository on Repository
       @argumentDefinitions(
         count: {type: "Int", defaultValue: 10}
         cursor: {type: "String"}
         orderBy: {
-          type: "GitHubIssueOrder"
+          type: "IssueOrder"
           defaultValue: {direction: DESC, field: CREATED_AT}
         }
       ) {
@@ -112,22 +112,19 @@ export default createPaginationContainer(
       query PostsPaginationQuery(
         $count: Int!
         $cursor: String
-        $orderBy: GitHubIssueOrder
+        $orderBy: IssueOrder
         $repoOwner: String!
         $repoName: String!
       )
       @persistedQueryConfiguration(
-        accessToken: {environmentVariable: "OG_GITHUB_TOKEN"}
         freeVariables: ["count", "cursor", "orderBy"]
         fixedVariables: {environmentVariable: "REPOSITORY_FIXED_VARIABLES"}
         cacheSeconds: 300
       ) {
-        gitHub {
-          repository(name: $repoName, owner: $repoOwner) {
-            __typename
-            ...Posts_repository
-              @arguments(count: $count, cursor: $cursor, orderBy: $orderBy)
-          }
+        repository(name: $repoName, owner: $repoOwner) {
+          __typename
+          ...Posts_repository
+            @arguments(count: $count, cursor: $cursor, orderBy: $orderBy)
         }
       }
     `,

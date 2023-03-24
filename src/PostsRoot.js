@@ -21,15 +21,12 @@ export const query = graphql`
   # repoName and repoOwner provided by fixedVariables
   query PostsRoot_Query($repoName: String!, $repoOwner: String!)
   @persistedQueryConfiguration(
-    accessToken: {environmentVariable: "OG_GITHUB_TOKEN"}
     fixedVariables: {environmentVariable: "REPOSITORY_FIXED_VARIABLES"}
     cacheSeconds: 300
   ) {
-    gitHub {
-      ...Avatar_gitHub @arguments(repoName: $repoName, repoOwner: $repoOwner)
-      repository(name: $repoName, owner: $repoOwner) {
-        ...Posts_repository
-      }
+    ...Avatar_gitHub @arguments(repoName: $repoName, repoOwner: $repoOwner)
+    repository(name: $repoName, owner: $repoOwner) {
+      ...Posts_repository
     }
   }
 `;
@@ -61,8 +58,8 @@ export const PostsRoot = () => {
     asyncHero.result &&
     asyncHero.result.twitchTv.makeRestCall.get.jsonBody.stream === null;
 
-  const respository = data?.gitHub ? data?.gitHub.repository : null;
-  if (!respository || !data.gitHub) {
+  const respository = data?.repository;
+  if (!respository) {
     return <ErrorBox error={new Error('Repository not found.')} />;
   } else {
     return (
@@ -75,7 +72,7 @@ export const PostsRoot = () => {
             <p>A digital garden for finding out what bdougie is working on.</p>
           </div>
         </section>
-        <Header gitHub={data.gitHub} adminLinks={[]} />
+        <Header adminLinks={[]} />
         {asyncHero.error && <div>Error: {asyncHero.error.message}</div>}
         <section className="max-w-4xl mx-auto mt-16 bg-black h-96">
           {!asyncResultBool ? <TwitchStream /> : <TwitchVOD />}

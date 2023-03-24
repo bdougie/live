@@ -16,24 +16,21 @@ const postQuery = graphql`
     $repoOwner: String!
   )
   @persistedQueryConfiguration(
-    accessToken: {environmentVariable: "OG_GITHUB_TOKEN"}
     fixedVariables: {environmentVariable: "REPOSITORY_FIXED_VARIABLES"}
     freeVariables: ["issueNumber"]
     cacheSeconds: 300
   ) {
-    gitHub {
-      repository(name: $repoName, owner: $repoOwner) {
-        issue(number: $issueNumber) {
-          labels(first: 100) {
-            nodes {
-              name
-            }
+    repository(name: $repoName, owner: $repoOwner) {
+      issue(number: $issueNumber) {
+        labels(first: 100) {
+          nodes {
+            name
           }
-          body
-          assignees(first: 10) {
-            nodes {
-              avatarUrl(size: 1200)
-            }
+        }
+        body
+        assignees(first: 10) {
+          nodes {
+            avatarUrl(size: 1200)
           }
         }
       }
@@ -115,7 +112,7 @@ export const ogImage = async (req: any, res: any) => {
     issueNumber: postNumber,
   }).toPromise();
 
-  const issue = data?.gitHub?.repository?.issue;
+  const issue = data?.repository?.issue;
   if (
     !issue ||
     !issue.labels?.nodes?.length ||

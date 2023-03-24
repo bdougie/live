@@ -17,5 +17,5 @@ const images = {
 
 export default function imgPicker(labels) {
   const label = labels.filter(x => x.node.name !== "publish")[0]
-  return label && images[label.node.name] || laptop
+  return label && images[label.node.name].src || laptop.src
 }
