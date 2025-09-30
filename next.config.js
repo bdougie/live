@@ -30,6 +30,15 @@ module.exports = () => {
     experimental: {
       reactMode: 'concurrent',
     },
+    async redirects() {
+      return [
+        {
+          source: '/:path*',
+          destination: 'https://b.dougie.dev/:path*',
+          permanent: true,
+        },
+      ];
+    },
     async rewrites() {
       return [
         {
