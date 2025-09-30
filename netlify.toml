@@ -1,7 +1,10 @@
 [build]
-  command = "npm install --legacy-peer-deps && npm run relay && npm run build"
+  command = "npm run relay && npm run build"
   publish = ".next"
   environment = { NETLIFY = "true", NPM_FLAGS = "--legacy-peer-deps" }
+
+[build.environment]
+  NPM_FLAGS = "--legacy-peer-deps"
 
 [context]
   environment = { NETLIFY = "true"}
