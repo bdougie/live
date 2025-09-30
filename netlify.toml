@@ -19,30 +19,7 @@
   OG_DASHBOARD_ACCESS_TOKEN = "The OneGraph API token that allows the build to create persisted queries"
 
 [[redirects]]
-  from = "/"
-  to = "/.netlify/functions/index/"
-  status = 200
-
-[[redirects]]
-  from = "/:top"
-  to = "/.netlify/functions/index/:top"
-  status = 200
-
-[[redirects]]
-  from = "/post/*"
-  to = "/.netlify/functions/index/post/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/feed*"
-  to = "/.netlify/functions/index/feed:splat"
-  status = 200
-
-[[redirects]]
-  from = "/image*"
-  to = "/.netlify/functions/index/image:splat"
-
-[[redirects]]
-  from = "/feed*"
-  to = "/.netlify/functions/next_api_feed_ext"
-  status = 200
+  from = "/*"
+  to = "https://b.dougie.dev/:splat"
+  status = 301
+  force = true
